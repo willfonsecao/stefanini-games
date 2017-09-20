@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { InscricoesPage } from "../pages/inscricoes/inscricoes";
 import { JogadorPage } from "../pages/jogador/jogador";
 import { RankingPage } from "../pages/ranking/ranking";
+import { AdministracaoPage } from '../pages/administracao/administracao';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { RankingPage } from "../pages/ranking/ranking";
     JogadorPage,
     HomePage,
     RankingPage,
+    AdministracaoPage,
     TabsPage
   ],
   imports: [
@@ -32,6 +34,7 @@ import { RankingPage } from "../pages/ranking/ranking";
     JogadorPage,
     HomePage,
     RankingPage,
+    AdministracaoPage,
     TabsPage
   ],
   providers: [
