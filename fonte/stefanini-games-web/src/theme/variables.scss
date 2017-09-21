@@ -38,7 +38,9 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  muted:      #9B9B9B,
+  edit:       #F7AC23
 );
 
 
@@ -88,6 +90,14 @@ $colors: (
 @import "noto-sans";
 
 //COMMONS//
+.button-ios-edit{
+  color: white !important;
+}
+
+ion-item-options .button{
+  font-size: 10pt !important;
+}
+
 h5,
 h3{
   color: #A4C140;
@@ -114,6 +124,10 @@ h3{
 
 .p-0{
   padding: 0 !important;
+}
+
+.button-inner .back-button-text{
+  display: none !important;
 }
 //END COMMONS//
 

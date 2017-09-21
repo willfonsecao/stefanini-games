@@ -1,3 +1,4 @@
+import { CategoriaPage } from './categoria/categoria';
 import { NavController } from "ionic-angular";
 import { Component } from "@angular/core";
 
@@ -10,6 +11,10 @@ import { Component } from "@angular/core";
   
     constructor(public navCtrl: NavController) {
   
+    }
+
+    irCategorias(){
+      this.navCtrl.push(CategoriaPage);
     }
   
   }
