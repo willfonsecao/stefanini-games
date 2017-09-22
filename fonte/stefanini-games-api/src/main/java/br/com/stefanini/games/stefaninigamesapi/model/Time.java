@@ -23,7 +23,7 @@ public class Time implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="ID")
+	@Column(name="PONTUACAO")
 	private Integer pontuacao;
 	
 	@OneToMany(mappedBy="time")
