@@ -1,17 +1,20 @@
 package br.com.stefanini.games.stefaninigamesapi.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CATEGORIA_CAMPEONATO")
-public class CategoriaCampeonato implements Serializable {
+@Table(name = "TIME")
+public class Time implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -20,8 +23,11 @@ public class CategoriaCampeonato implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="NOME")
-	private String nome;
+	@Column(name="ID")
+	private Integer pontuacao;
+	
+	@OneToMany(mappedBy="time")
+	private Set<Usuario> usuarios = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -31,12 +37,20 @@ public class CategoriaCampeonato implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public Integer getPontuacao() {
+		return pontuacao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setPontuacao(Integer pontuacao) {
+		this.pontuacao = pontuacao;
 	}
 
+	public Set<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
 }
