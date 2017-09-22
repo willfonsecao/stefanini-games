@@ -31,12 +31,12 @@ import { NavController } from "ionic-angular";
 
       editar(item: CategoriaResponse){
         this.categoria = item;
+        this.categorias.splice(this.categorias.indexOf(this.categoria), 1);
       }
 
       salvar(){
         this.categoriaService.cadastrar(this.categoria,
           (novaCategoria) => {
-            this.categorias.splice(this.categorias.indexOf(this.categoria), 1);
             this.categorias.push(novaCategoria);
             this.categoria.nome = null;
           });

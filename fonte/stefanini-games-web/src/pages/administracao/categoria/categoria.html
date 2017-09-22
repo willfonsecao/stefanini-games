@@ -17,7 +17,7 @@
             <ion-item-sliding *ngFor="let item of categorias">
               <ion-item>
                 <ion-icon name="ios-arrow-dropleft" color="muted" item-end></ion-icon>
-                <h2>{{item.nome}}</h2>
+                <h2 class="text-muted">{{item.nome}}</h2>
               </ion-item>
               <ion-item-options side="right">
                 <button ion-button color="edit" (click)="editar(item)">

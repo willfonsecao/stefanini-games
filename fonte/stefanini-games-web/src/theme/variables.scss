@@ -116,6 +116,10 @@ h3{
   color: gray;
 }
 
+.text-blue{
+  color: #1F57A7;
+}
+
 .text-truncated{
   white-space: nowrap;
   overflow: hidden;
@@ -167,3 +171,7 @@ h3{
     color: #A4C140 !important;
   }
   //END TABS//
+
+  .adm-list ion-item{
+    color: #1F57A7 !important;
+  }
