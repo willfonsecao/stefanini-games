@@ -1,3 +1,4 @@
+import { CampeonatoPage } from './campeonato/campeonato';
 import { CategoriaPage } from './categoria/categoria';
 import { NavController } from "ionic-angular";
 import { Component } from "@angular/core";
@@ -15,6 +16,10 @@ import { Component } from "@angular/core";
 
     irCategorias(){
       this.navCtrl.push(CategoriaPage);
+    }
+    
+    irCampeonatos(){
+      this.navCtrl.push(CampeonatoPage);
     }
   
   }

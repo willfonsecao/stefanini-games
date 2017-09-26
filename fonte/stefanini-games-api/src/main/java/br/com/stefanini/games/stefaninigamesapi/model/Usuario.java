@@ -11,9 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-@CrossOrigin
 @Entity
 @Table(name = "USUARIO")
 public class Usuario implements Serializable {

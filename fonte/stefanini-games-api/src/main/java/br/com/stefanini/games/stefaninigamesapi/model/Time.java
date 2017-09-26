@@ -28,6 +28,50 @@ public class Time implements Serializable{
 	
 	@OneToMany(mappedBy="time")
 	private Set<Usuario> usuarios = new HashSet<>();
+	
+	@OneToMany(mappedBy="time1")
+	private Set<Jogo> jogosTime1 = new HashSet<>();
+
+	@OneToMany(mappedBy="time2")
+	private Set<Jogo> jogosTime2 = new HashSet<>();
+
+	@OneToMany(mappedBy="vencedor")
+	private Set<Jogo> jogosVencidos = new HashSet<>();
+	
+	@OneToMany(mappedBy="perdedor")
+	private Set<Jogo> jogosPerdidos = new HashSet<>();
+	
+	public Set<Jogo> getJogosTime1() {
+		return jogosTime1;
+	}
+
+	public void setJogosTime1(Set<Jogo> jogosTime1) {
+		this.jogosTime1 = jogosTime1;
+	}
+
+	public Set<Jogo> getJogosTime2() {
+		return jogosTime2;
+	}
+
+	public void setJogosTime2(Set<Jogo> jogosTime2) {
+		this.jogosTime2 = jogosTime2;
+	}
+
+	public Set<Jogo> getJogosVencidos() {
+		return jogosVencidos;
+	}
+
+	public void setJogosVencidos(Set<Jogo> jogosVencidos) {
+		this.jogosVencidos = jogosVencidos;
+	}
+
+	public Set<Jogo> getJogosPerdidos() {
+		return jogosPerdidos;
+	}
+
+	public void setJogosPerdidos(Set<Jogo> jogosPerdidos) {
+		this.jogosPerdidos = jogosPerdidos;
+	}
 
 	public Long getId() {
 		return id;

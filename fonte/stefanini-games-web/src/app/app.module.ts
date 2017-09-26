@@ -1,3 +1,4 @@
+import { CampeonatoPage } from './../pages/administracao/campeonato/campeonato';
 import { CategoriaPage } from './../pages/administracao/categoria/categoria';
 import { CategoriaService } from './../core/service/categoria/categoria-service';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -17,6 +18,8 @@ import { AdministracaoPage } from '../pages/administracao/administracao';
 import { ExtendedXHRBackend } from '../core/infra/http/extended-xhrbackend';
 import { XHRBackend, HttpModule } from '@angular/http';
 import { LocalStorageService } from '../core/infra/local-storage/local-storage-service';
+import { CadastrarCampeonatoPage } from '../pages/administracao/campeonato/cadastro-campeonato/cadastrar-campeonato';
+import { CampeonatoService } from '../core/service/campeonato/campeonato-service';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { LocalStorageService } from '../core/infra/local-storage/local-storage-s
     RankingPage,
     AdministracaoPage,
     CategoriaPage,
+    CampeonatoPage,
+    CadastrarCampeonatoPage,
     TabsPage
   ],
   imports: [
@@ -43,6 +48,8 @@ import { LocalStorageService } from '../core/infra/local-storage/local-storage-s
     RankingPage,
     AdministracaoPage,
     CategoriaPage,
+    CampeonatoPage,
+    CadastrarCampeonatoPage,
     TabsPage
   ],
   providers: [
@@ -51,7 +58,8 @@ import { LocalStorageService } from '../core/infra/local-storage/local-storage-s
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: XHRBackend, useClass: ExtendedXHRBackend},
     LocalStorageService,
-    CategoriaService
+    CategoriaService,
+    CampeonatoService
   ]
 })
 export class AppModule {}

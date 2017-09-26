@@ -130,6 +130,10 @@ h3{
   padding: 0 !important;
 }
 
+.pb-2{
+  padding-bottom: 2%;
+}
+
 .button-inner .back-button-text{
   display: none !important;
 }
@@ -172,6 +176,14 @@ h3{
   }
   //END TABS//
 
+  .date-list ion-label,
+  .ctg-list ion-item,
   .adm-list ion-item{
     color: #1F57A7 !important;
   }
+
+  .date-list .datetime-text,
+  .ctg-list .select-text{
+    color: #A4C140 !important;
+  }
+  
