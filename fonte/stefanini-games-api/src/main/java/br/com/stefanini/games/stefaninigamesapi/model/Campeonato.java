@@ -16,12 +16,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.joda.time.DateTime;
+
+import br.com.stefanini.games.stefaninigamesapi.enumarated.Meses;
+
 @Entity
 @Table(name = "CAMPEONATO")
 public class Campeonato implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	public Campeonato() {
+		this.edicao = this.construirEdicao();
+	}
+	
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -64,15 +72,33 @@ public class Campeonato implements Serializable{
 	@Column(name = "PREMIO_TERCEIRO_COLOCADO")
 	private String premioTerceiroColocado;
 	
-	@OneToMany(mappedBy = "id" )
-	private Set<Time> times = new HashSet<>();
+	@OneToMany(mappedBy = "campeonato" )
+	private Set<Etapa> etapas = new HashSet<>();
 	
-	public Set<Time> getTimes() {
-		return times;
+	@Column(name = "EDICAO")
+	private String edicao;
+	
+	private String construirEdicao() {
+		DateTime dataInicio = new DateTime(this.getDataInicio());
+		Integer mesInicio = dataInicio.getMonthOfYear();
+
+		return Meses.getMes(mesInicio) + "/" + dataInicio.getYear();
+	}
+	
+	public String getEdicao() {
+		return edicao;
 	}
 
-	public void setTimes(Set<Time> times) {
-		this.times = times;
+	public void setEdicao(String edicao) {
+		this.edicao = edicao;
+	}
+
+	public Set<Etapa> getEtapas() {
+		return etapas;
+	}
+
+	public void setEtapas(Set<Etapa> etapas) {
+		this.etapas = etapas;
 	}
 
 	public Long getId() {
@@ -171,4 +197,35 @@ public class Campeonato implements Serializable{
 		this.premioTerceiroColocado = premioTerceiroColocado;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Campeonato other = (Campeonato) obj;
+		if (categoria == null) {
+			if (other.categoria != null)
+				return false;
+		} else if (!categoria.equals(other.categoria))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 }

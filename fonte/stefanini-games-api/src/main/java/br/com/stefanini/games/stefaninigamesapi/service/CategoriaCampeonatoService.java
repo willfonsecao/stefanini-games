@@ -1,10 +1,13 @@
 package br.com.stefanini.games.stefaninigamesapi.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.stefanini.games.stefaninigames.api.dto.response.CategoriaCampeonatoDTOResponse;
 import br.com.stefanini.games.stefaninigamesapi.model.CategoriaCampeonato;
 import br.com.stefanini.games.stefaninigamesapi.repository.CategoriaCampeonatoRepository;
 
@@ -14,8 +17,16 @@ public class CategoriaCampeonatoService {
 	@Autowired
 	private CategoriaCampeonatoRepository categoriaRepository;
 	
-	public List<CategoriaCampeonato> findAll(){
-		return this.categoriaRepository.findAll();
+	public List<CategoriaCampeonatoDTOResponse> findAll(){
+		return this.categoriaRepository.findAll()
+				.stream().map((categoria) -> new CategoriaCampeonatoDTOResponse(categoria))
+				.collect(Collectors.toList());
+	}
+	
+	public List<CategoriaCampeonatoDTOResponse> getCategoriasAbertasParaInscricao(){
+		return this.categoriaRepository.getCategoriasAbertasParaInscricao(new Date())
+				.stream().map((categoria) -> new CategoriaCampeonatoDTOResponse(categoria))
+				.collect(Collectors.toList());
 	}
 	
 	public CategoriaCampeonato save(CategoriaCampeonato categoria){

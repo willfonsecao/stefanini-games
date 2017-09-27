@@ -2,6 +2,8 @@ package br.com.stefanini.games.stefaninigamesapi.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.stefanini.games.stefaninigamesapi.enumarated.SimNaoEnum;
@@ -50,7 +53,6 @@ public class Jogo implements Serializable{
 	@Column(name = "EMPATE", length = 1)
 	private SimNaoEnum isEmpate;
 	
-
 	@Column(name = "PLACAR_TIME_1")
 	private Integer placarTime1;
 
@@ -62,6 +64,17 @@ public class Jogo implements Serializable{
 	
 	@Column(name = "PONTOS_TIME_2")
 	private Integer pontosTime2;
+	
+	@OneToMany(mappedBy="jogo")
+	private Set<JogoEtapa> jogosEtapas = new HashSet<>();
+	
+	public Set<JogoEtapa> getJogosEtapas() {
+		return jogosEtapas;
+	}
+
+	public void setJogosEtapas(Set<JogoEtapa> jogosEtapas) {
+		this.jogosEtapas = jogosEtapas;
+	}
 
 	public Long getId() {
 		return id;

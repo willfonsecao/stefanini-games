@@ -14,6 +14,23 @@
         </ion-item>
     </ion-list>
 
+    <ion-list>
+        <ion-item>
+            <ion-label floating color="muted">Prêmio 1º Lugar</ion-label>
+            <ion-input type="text" [(ngModel)]="campeonato.premioCampeao"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating color="muted">Prêmio 2º Lugar</ion-label>
+            <ion-input type="text" [(ngModel)]="campeonato.premioSegundoColocado"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+            <ion-label floating color="muted">Prêmio 3º Lugar</ion-label>
+            <ion-input type="text" [(ngModel)]="campeonato.premioTerceiroColocado"></ion-input>
+        </ion-item>
+    </ion-list>
+
     <span class="date-list">
         <ion-item>
             <ion-label>Inscrições De:</ion-label>

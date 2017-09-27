@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.stefanini.games.stefaninigames.api.dto.response.CategoriaCampeonatoDTOResponse;
 import br.com.stefanini.games.stefaninigamesapi.model.CategoriaCampeonato;
 import br.com.stefanini.games.stefaninigamesapi.service.CategoriaCampeonatoService;
 
@@ -24,8 +25,13 @@ public class CategoriaCampeonatoController {
 	private CategoriaCampeonatoService categoriaService;
 	
 	@GetMapping
-	public List<CategoriaCampeonato> findAll(){
+	public List<CategoriaCampeonatoDTOResponse> findAll(){
 		return this.categoriaService.findAll();
+	}
+	
+	@GetMapping(path = "/abertas")
+	public List<CategoriaCampeonatoDTOResponse> getCategoriasAbertasParaInscricao(){
+		return this.categoriaService.getCategoriasAbertasParaInscricao();
 	}
 	
 	@PostMapping

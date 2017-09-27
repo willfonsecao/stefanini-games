@@ -32,6 +32,14 @@ export class CategoriaService {
             .buildGet();
     }
 
+    buscarAbertas(handlerSucess: (value: CategoriaResponse[]) => void): void {
+        new HttpConnectionBuilder<CategoriaResponse[]>(this.http, this.loadingCtrl)
+            .addEndPoint('categorias/abertas')
+            .addToastrUtil(this.toastCtrl)
+            .addHandlerSucess(handlerSucess)
+            .buildGet();
+    }
+
     deletar(pessoaID: number, handlerSucess: (value: any) => void): void {
         new HttpConnectionBuilder<any>(this.http, this.loadingCtrl)
             .addEndPoint('categorias/'+pessoaID)

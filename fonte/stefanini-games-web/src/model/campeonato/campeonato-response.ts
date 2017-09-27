@@ -11,5 +11,6 @@ export class CampeonatoResponse {
     premioCampeao: string;
     premioSegundoColocado: string;
     premioTerceiroColocado: string;
+    edicao: string;
 
 }

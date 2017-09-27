@@ -32,9 +32,9 @@ export class CampeonatoService {
             .buildGet();
     }
 
-    deletar(pessoaID: number, handlerSucess: (value: any) => void): void {
+    deletar(campeonatoId: number, handlerSucess: (value: any) => void): void {
         new HttpConnectionBuilder<any>(this.http, this.loadingCtrl)
-            .addEndPoint('campeonatos/'+pessoaID)
+            .addEndPoint('campeonatos/'+ campeonatoId)
             .addToastrUtil(this.toastCtrl)
             .addHandlerSucess(handlerSucess)
             .buildDelete();

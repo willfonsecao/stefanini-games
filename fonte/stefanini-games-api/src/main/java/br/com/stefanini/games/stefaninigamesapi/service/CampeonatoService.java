@@ -2,10 +2,12 @@ package br.com.stefanini.games.stefaninigamesapi.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.stefanini.games.stefaninigames.api.dto.response.CampeonatoDTOResponse;
 import br.com.stefanini.games.stefaninigamesapi.exception.rest.UnprocessableEntityException;
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
 import br.com.stefanini.games.stefaninigamesapi.repository.CampeonatoRepository;
@@ -16,8 +18,10 @@ public class CampeonatoService {
 	@Autowired
 	private CampeonatoRepository campeonatoRepository;
 	
-	public List<Campeonato> findAll(){
-		return this.campeonatoRepository.findAll();
+	public List<CampeonatoDTOResponse> findAll(){
+		return this.campeonatoRepository.findAll()
+				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
+				.collect(Collectors.toList());
 	}
 	
 	public Campeonato save(Campeonato campeonato){

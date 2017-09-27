@@ -20,6 +20,8 @@ import { XHRBackend, HttpModule } from '@angular/http';
 import { LocalStorageService } from '../core/infra/local-storage/local-storage-service';
 import { CadastrarCampeonatoPage } from '../pages/administracao/campeonato/cadastro-campeonato/cadastrar-campeonato';
 import { CampeonatoService } from '../core/service/campeonato/campeonato-service';
+import { EditarCampeonatoPage } from '../pages/administracao/campeonato/editar-campeonato/editar-campeonato';
+import { VisualizarCampeonatoPage } from '../pages/inscricoes/visualizar-campeonato/visualizar-campeonato';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { CampeonatoService } from '../core/service/campeonato/campeonato-service
     CategoriaPage,
     CampeonatoPage,
     CadastrarCampeonatoPage,
+    EditarCampeonatoPage,
+    VisualizarCampeonatoPage,
     TabsPage
   ],
   imports: [
@@ -50,6 +54,8 @@ import { CampeonatoService } from '../core/service/campeonato/campeonato-service
     CategoriaPage,
     CampeonatoPage,
     CadastrarCampeonatoPage,
+    EditarCampeonatoPage,
+    VisualizarCampeonatoPage,
     TabsPage
   ],
   providers: [

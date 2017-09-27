@@ -13,4 +13,27 @@
         </ion-item>
     </ion-item-group>
 
+    <ion-list>
+        <ion-item-sliding *ngFor="let item of campeonatos">
+            <ion-item>
+                <ion-icon name="ios-arrow-dropleft" color="muted" item-end></ion-icon>
+                <h2 class="text-muted">{{item.categoria.nome}} - Edição: {{item.edicao}}</h2>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="edit" (click)="editar({campeonato: item})">
+                        <ion-icon name="ios-create-outline"></ion-icon>
+                        Editar
+                      </button>
+                <button ion-button color="danger" (click)="excluir(item)">
+                        <ion-icon name="ios-close"></ion-icon>
+                        Excluir
+                      </button>
+                <button ion-button color="primary">
+                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+                        Gerar Jogos
+                      </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
 </ion-content>
