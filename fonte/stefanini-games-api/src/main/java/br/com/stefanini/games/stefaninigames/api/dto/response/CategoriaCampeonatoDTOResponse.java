@@ -2,8 +2,8 @@ package br.com.stefanini.games.stefaninigames.api.dto.response;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
 import br.com.stefanini.games.stefaninigamesapi.model.CategoriaCampeonato;
 
 public class CategoriaCampeonatoDTOResponse {
@@ -11,7 +11,7 @@ public class CategoriaCampeonatoDTOResponse {
 	private Long id;
 	private String nome;
 	private byte[] logo;
-	private Set<Campeonato> campeonatos = new HashSet<>();
+	private Set<CampeonatoDTOResponse> campeonatos = new HashSet<>();
 	
 	public CategoriaCampeonatoDTOResponse() {}
 	
@@ -19,7 +19,7 @@ public class CategoriaCampeonatoDTOResponse {
 		this.id = categoria.getId();
 		this.nome = categoria.getNome();
 		this.logo = categoria.getLogo();
-		this.campeonatos = categoria.getCampeonatos();
+		this.campeonatos = categoria.getCampeonatos().stream().map((camp) -> new CampeonatoDTOResponse(camp)).collect(Collectors.toSet());
 	}
 	
 	public Long getId() {
@@ -40,10 +40,10 @@ public class CategoriaCampeonatoDTOResponse {
 	public void setLogo(byte[] logo) {
 		this.logo = logo;
 	}
-	public Set<Campeonato> getCampeonatos() {
+	public Set<CampeonatoDTOResponse> getCampeonatos() {
 		return campeonatos;
 	}
-	public void setCampeonatos(Set<Campeonato> campeonatos) {
+	public void setCampeonatos(Set<CampeonatoDTOResponse> campeonatos) {
 		this.campeonatos = campeonatos;
 	}
 	

@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,8 +29,8 @@ public class Time implements Serializable{
 	@Column(name="PONTUACAO")
 	private Integer pontuacao;
 	
-	@OneToMany(mappedBy="time")
-	private Set<Usuario> usuarios = new HashSet<>();
+	@OneToMany(mappedBy="time", cascade = CascadeType.REMOVE)
+	private Set<Jogador> jogadores = new HashSet<>();
 	
 	@OneToMany(mappedBy="time1")
 	private Set<Jogo> jogosTime1 = new HashSet<>();
@@ -41,6 +44,26 @@ public class Time implements Serializable{
 	@OneToMany(mappedBy="perdedor")
 	private Set<Jogo> jogosPerdidos = new HashSet<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "ID_CAMPEONATO")
+	private Campeonato campeonato;
+	
+	public Set<Jogador> getJogadores() {
+		return jogadores;
+	}
+
+	public void setJogadores(Set<Jogador> jogadores) {
+		this.jogadores = jogadores;
+	}
+
+	public Campeonato getCampeonato() {
+		return campeonato;
+	}
+
+	public void setCampeonato(Campeonato campeonato) {
+		this.campeonato = campeonato;
+	}
+
 	public Set<Jogo> getJogosTime1() {
 		return jogosTime1;
 	}
@@ -89,12 +112,35 @@ public class Time implements Serializable{
 		this.pontuacao = pontuacao;
 	}
 
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((campeonato == null) ? 0 : campeonato.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Time other = (Time) obj;
+		if (campeonato == null) {
+			if (other.campeonato != null)
+				return false;
+		} else if (!campeonato.equals(other.campeonato))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }

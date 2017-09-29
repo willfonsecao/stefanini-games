@@ -1,5 +1,4 @@
 import { EndPointUtil } from './../../../util/endpoint-util';
-import { UsuarioService } from './../../../core/service/user/user-service';
 import { UsuarioResponse } from './../../../model/user/usuario';
 import { Component } from "@angular/core";
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -23,7 +22,6 @@ export class EditarPerfilPage {
                 private actionSheetCtrl: ActionSheetController,
                 private params: NavParams,
                 public navCtrl: NavController,
-                private usuarioService: UsuarioService,
                 private transfer: FileTransfer){
        
         this.popularUsuario();

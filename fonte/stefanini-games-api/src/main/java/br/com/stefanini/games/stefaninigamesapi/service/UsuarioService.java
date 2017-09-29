@@ -30,4 +30,10 @@ public class UsuarioService {
 		return usuarioRepository.findByUsername(username);
 	}
 	
+	public void savedPhoto(String username){
+		Usuario usuario = usuarioRepository.findByUsername(username);
+		usuario.setFoto(true);
+		usuarioRepository.save(usuario);
+	}
+	
 }

@@ -23,10 +23,36 @@ export class CampeonatoService {
             .showToastSucess()
             .buildPost();
     }
+    
+    inscrever(idUsuario: number,idCampeonato: number,handlerSucess: (value:any) => void): void {
+        new HttpConnectionBuilder<any>(this.http, this.loadingCtrl)
+            .addEndPoint(`campeonatos/${idCampeonato}/inscricao/${idUsuario}`)
+            .addToastrUtil(this.toastCtrl)
+            .generateParametersJson()
+            .showToastSucess()
+            .buildPost();
+    }
+    
+    cancelarInscricao(idUsuario: number,idCampeonato: number,handlerSucess: (value:any) => void): void {
+        new HttpConnectionBuilder<any>(this.http, this.loadingCtrl)
+            .addEndPoint(`campeonatos/${idCampeonato}/inscricao/${idUsuario}`)
+            .addToastrUtil(this.toastCtrl)
+            .generateParametersJson()
+            .showToastSucess()
+            .buildDelete();
+    }
 
     buscar(handlerSucess: (value: CampeonatoResponse[]) => void): void {
         new HttpConnectionBuilder<CampeonatoResponse[]>(this.http, this.loadingCtrl)
             .addEndPoint('campeonatos')
+            .addToastrUtil(this.toastCtrl)
+            .addHandlerSucess(handlerSucess)
+            .buildGet();
+    }
+    
+    getCampeonatosInscrito(idUsuario: number,handlerSucess: (value: CampeonatoResponse[]) => void): void {
+        new HttpConnectionBuilder<CampeonatoResponse[]>(this.http, this.loadingCtrl)
+            .addEndPoint(`campeonatos/inscricao/${idUsuario}`)
             .addToastrUtil(this.toastCtrl)
             .addHandlerSucess(handlerSucess)
             .buildGet();

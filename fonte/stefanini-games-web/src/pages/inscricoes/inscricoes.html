@@ -12,7 +12,7 @@
 
       <ion-item-sliding *ngFor="let camp of item.campeonatos">
 
-        <ion-item >
+        <ion-item>
           <ion-avatar item-start>
             <img src="assets/logo-stefanini-games.svg">
           </ion-avatar>
@@ -25,11 +25,15 @@
           <button ion-button color="primary" (click)="visualizar({campeonato: camp}, item)">
               <ion-icon name="ios-search"></ion-icon>
               Visualizar
-            </button>
-          <button ion-button color="secondary" (click)="inscrever(camp)">
+          </button>
+          <button ion-button color="secondary" (click)="inscrever(camp)" *ngIf="!camp.isInscrito">
               <ion-icon name="ios-add-circle-outline"></ion-icon>
               Inscrever
-            </button>
+          </button>
+          <button ion-button color="danger" (click)="cancelarInscricao(camp)" *ngIf="camp.isInscrito">
+              <ion-icon name="ios-close-circle-outline"></ion-icon>
+              Cancelar Inscrição
+          </button>
         </ion-item-options>
 
       </ion-item-sliding>

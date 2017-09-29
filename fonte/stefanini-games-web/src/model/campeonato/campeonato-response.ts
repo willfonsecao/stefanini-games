@@ -1,3 +1,4 @@
+import { TimeResponse } from './../time/time-response';
 import { CategoriaResponse } from './../categoria/categoria-response';
 
 export class CampeonatoResponse {
@@ -12,5 +13,7 @@ export class CampeonatoResponse {
     premioSegundoColocado: string;
     premioTerceiroColocado: string;
     edicao: string;
+    inscritos: TimeResponse[] = [];
+    isInscrito: boolean;
 
 }

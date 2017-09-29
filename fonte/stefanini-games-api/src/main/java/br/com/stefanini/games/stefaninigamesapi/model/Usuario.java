@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -37,10 +37,18 @@ public class Usuario implements Serializable {
 	@Column(name="ADMINISTRADOR")
 	private boolean isAdministrador;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_TIME")
-	private Time time;
+	@OneToOne
+	@JoinColumn(name = "ID_JOGADOR")
+	private Jogador jogador;
 	
+	public Jogador getJogador() {
+		return jogador;
+	}
+
+	public void setJogador(Jogador jogador) {
+		this.jogador = jogador;
+	}
+
 	public boolean isFoto() {
 		return foto;
 	}
@@ -55,14 +63,6 @@ public class Usuario implements Serializable {
 
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
-	}
-
-	public Time getTime() {
-		return time;
-	}
-
-	public void setTime(Time time) {
-		this.time = time;
 	}
 
 	public Long getId() {

@@ -1,5 +1,6 @@
 package br.com.stefanini.games.stefaninigamesapi.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,21 @@ public class CampeonatoController {
 	@DeleteMapping(path = "{id}")
 	public void delete(@PathVariable Long id){
 		this.campeonatoService.delete(id);
+	}
+
+	@DeleteMapping(path = "/{idCampeonato}/inscricao/{idUsuario}")
+	public void cancelarInscricao(@PathVariable("idUsuario") Long idUsuario, @PathVariable("idCampeonato") Long idCampeonato){
+		this.campeonatoService.cancelarInscricao(idUsuario,idCampeonato);
+	}
+	
+	@PostMapping(path = "/{idCampeonato}/inscricao/{idUsuario}")
+	public void inscrever(@PathVariable("idUsuario") Long idUsuario, @PathVariable("idCampeonato") Long idCampeonato){
+		this.campeonatoService.inscrever(idUsuario,idCampeonato);
+	}
+
+	@GetMapping(path = "/inscricao/{idUsuario}")
+	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(@PathVariable("idUsuario") Long idUsuario){
+		return this.campeonatoService.getCampeonatosAbertosInscricao(idUsuario,new Date());
 	}
 
 }

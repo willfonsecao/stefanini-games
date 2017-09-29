@@ -18,10 +18,13 @@ import javax.persistence.Table;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.stefanini.games.stefaninigamesapi.enumarated.Meses;
 
 @Entity
 @Table(name = "CAMPEONATO")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Campeonato implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -71,13 +74,24 @@ public class Campeonato implements Serializable{
 
 	@Column(name = "PREMIO_TERCEIRO_COLOCADO")
 	private String premioTerceiroColocado;
-	
-	@OneToMany(mappedBy = "campeonato" )
-	private Set<Etapa> etapas = new HashSet<>();
-	
+
 	@Column(name = "EDICAO")
 	private String edicao;
 	
+	@OneToMany(mappedBy = "campeonato")
+	private Set<Etapa> etapas = new HashSet<>();
+
+	@OneToMany(mappedBy = "campeonato")
+	private Set<Time> inscritos = new HashSet<>();
+	
+	public Set<Time> getInscritos() {
+		return inscritos;
+	}
+
+	public void setInscritos(Set<Time> inscritos) {
+		this.inscritos = inscritos;
+	}
+
 	private String construirEdicao() {
 		DateTime dataInicio = new DateTime(this.getDataInicio());
 		Integer mesInicio = dataInicio.getMonthOfYear();

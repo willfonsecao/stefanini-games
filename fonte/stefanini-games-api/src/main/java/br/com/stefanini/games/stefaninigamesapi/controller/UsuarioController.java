@@ -49,10 +49,16 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(path = "/photo")
-	public void savePhoto(@RequestParam("file") MultipartFile file){
+	public void savePhoto(@RequestParam("file") MultipartFile file) {
+		writeFile("c:\\foto\\", file);
+		String username = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
+		usuarioService.savedPhoto(username);
+	}
+	
+	private void writeFile(String local, MultipartFile file) {
 		List<String> erros = new ArrayList<>();
 		try {
-			FileOutputStream fos = new FileOutputStream("c:\\foto\\"+file.getOriginalFilename());
+			FileOutputStream fos = new FileOutputStream(local + file.getOriginalFilename());
 			byte[] bytes = file != null ? file.getBytes() : null;
 			fos.write(bytes);
 			fos.close();
@@ -60,7 +66,7 @@ public class UsuarioController {
 			erros.add("Não foi possível salvar sua foto. Tente novamente mais tarde.");
 			throw new UnprocessableEntityException(erros);
 		}
-		
+
 	}
 
 }

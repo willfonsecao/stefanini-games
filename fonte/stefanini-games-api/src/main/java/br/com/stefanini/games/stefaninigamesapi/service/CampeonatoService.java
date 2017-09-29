@@ -1,6 +1,7 @@
 package br.com.stefanini.games.stefaninigamesapi.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,13 +11,28 @@ import org.springframework.stereotype.Service;
 import br.com.stefanini.games.stefaninigames.api.dto.response.CampeonatoDTOResponse;
 import br.com.stefanini.games.stefaninigamesapi.exception.rest.UnprocessableEntityException;
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
+import br.com.stefanini.games.stefaninigamesapi.model.Jogador;
+import br.com.stefanini.games.stefaninigamesapi.model.Time;
+import br.com.stefanini.games.stefaninigamesapi.model.Usuario;
 import br.com.stefanini.games.stefaninigamesapi.repository.CampeonatoRepository;
+import br.com.stefanini.games.stefaninigamesapi.repository.JogadorRepository;
+import br.com.stefanini.games.stefaninigamesapi.repository.TimeRepository;
+import br.com.stefanini.games.stefaninigamesapi.repository.UsuarioRepository;
 
 @Service
 public class CampeonatoService {
 	
 	@Autowired
 	private CampeonatoRepository campeonatoRepository;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private TimeRepository timeRepository;
+
+	@Autowired
+	private JogadorRepository jogadorRepository;
 	
 	public List<CampeonatoDTOResponse> findAll(){
 		return this.campeonatoRepository.findAll()
@@ -29,6 +45,32 @@ public class CampeonatoService {
 		return this.campeonatoRepository.save(campeonato);
 	}
 	
+	public void inscrever(Long idUsuario, Long idCampeonato){
+		Campeonato campeonato = campeonatoRepository.findOne(idCampeonato);
+		Usuario usuario = usuarioRepository.findOne(idUsuario);
+		
+		Time time = new Time();
+		time.setCampeonato(campeonato);
+		time = timeRepository.save(time);
+		
+		Jogador jogador = new Jogador();
+		jogador.setUsuario(usuario);
+		jogador.setTime(time);
+		jogadorRepository.save(jogador);
+
+	}
+	
+	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(Long idUsuario, Date dataAtual){
+		 return this.campeonatoRepository.getCampeonatosAbertosInscricao(idUsuario, dataAtual)
+					.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
+					.collect(Collectors.toList());
+	}
+	
+	public void cancelarInscricao(Long idUsuario, Long idCampeonato){
+		Time time = timeRepository.getTime(idUsuario, idCampeonato);
+		timeRepository.delete(time.getId());
+	}
+
 	public void delete(Long id){
 		this.campeonatoRepository.delete(id);
 	}
