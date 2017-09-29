@@ -5,8 +5,6 @@ import { CategoriaResponse } from './../../model/categoria/categoria-response';
 import { CategoriaService } from './../../core/service/categoria/categoria-service';
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
-import * as moment from 'moment';
-
 
 @Component({
     selector: 'page-inscricoes',

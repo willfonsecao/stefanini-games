@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { Subscription } from "rxjs/Subscription";
 import { ToastController, LoadingController, Loading } from "ionic-angular";
 
-export class HttpConnectionBuilder<T> {
+export class HttpConnectionBuilderLogin<T> {
     url: string = '';
     endPoint: string = '';
 
@@ -27,61 +27,61 @@ export class HttpConnectionBuilder<T> {
         });
     }
 
-    addServerDomain(urlServerDomain: string): HttpConnectionBuilder<T> {
+    addServerDomain(urlServerDomain: string): HttpConnectionBuilderLogin<T> {
         this.url += urlServerDomain;
 
         return this;
     }
 
-    addEndPoint(endPoint: string): HttpConnectionBuilder<T> {
+    addEndPoint(endPoint: string): HttpConnectionBuilderLogin<T> {
         this.endPoint += endPoint;
 
         return this;
     }
 
-    addPage(page: number): HttpConnectionBuilder<T> {
+    addPage(page: number): HttpConnectionBuilderLogin<T> {
         this.addPagination(10, page);
 
         return this;
     }
 
-    addPagination(size: number, page: number): HttpConnectionBuilder<T> {
+    addPagination(size: number, page: number): HttpConnectionBuilderLogin<T> {
         this.parametersPagination = { 'size': size, 'page': page };
 
         return this;
     }
 
-    addParameter(parameters: any): HttpConnectionBuilder<T> {
+    addParameter(parameters: any): HttpConnectionBuilderLogin<T> {
         this.parameters = parameters
 
         return this;
     }
 
-    addFileParameter(file: any): HttpConnectionBuilder<T> {
+    addFileParameter(file: any): HttpConnectionBuilderLogin<T> {
         this.file = file
 
         return this;
     }
 
-    addHandlerError(handlerError: (value: any) => void): HttpConnectionBuilder<T> {
+    addHandlerError(handlerError: (value: any) => void): HttpConnectionBuilderLogin<T> {
         this.handlerError = handlerError
 
         return this;
     }
 
-    addHandlerSucess(handlerSucess: (value: T) => void): HttpConnectionBuilder<T> {
+    addHandlerSucess(handlerSucess: (value: T) => void): HttpConnectionBuilderLogin<T> {
         this.handlerSucess = handlerSucess
 
         return this;
     }
 
-    addToastrUtil(toastController: ToastController): HttpConnectionBuilder<T> {
+    addToastrUtil(toastController: ToastController): HttpConnectionBuilderLogin<T> {
         this.toastController = toastController;
 
         return this;
     }
 
-    generateFormData(keyForm: string, keyFile?: string): HttpConnectionBuilder<T> {
+    generateFormData(keyForm: string, keyFile?: string): HttpConnectionBuilderLogin<T> {
         let formData: FormData = new FormData();
         formData.append(keyForm, JSON.stringify(this.parameters));
 
@@ -94,19 +94,19 @@ export class HttpConnectionBuilder<T> {
         return this;
     }
 
-    generateParametersJson(): HttpConnectionBuilder<T> {
+    generateParametersJson(): HttpConnectionBuilderLogin<T> {
         this.parameters = JSON.stringify(this.parameters);
 
         return this;
     }
 
-    hideToastErro(): HttpConnectionBuilder<T> {
+    hideToastErro(): HttpConnectionBuilderLogin<T> {
         this.showMsgError = false;
 
         return this;
     }
 
-    showToastSucess(): HttpConnectionBuilder<T> {
+    showToastSucess(): HttpConnectionBuilderLogin<T> {
         this.showMsgSucess = true;
 
         return this;
@@ -233,7 +233,7 @@ export class HttpConnectionBuilder<T> {
     }
 
     private addApplicationServerDomain() {
-        this.url += EndPointUtil.endPointGames;
+        this.url += EndPointUtil.endPointLDAP;
     }
 
     private showLoading() {

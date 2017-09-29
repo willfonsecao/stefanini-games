@@ -3,7 +3,7 @@ import { CampeonatoService } from './../../../core/service/campeonato/campeonato
 import { CampeonatoResponse } from './../../../model/campeonato/campeonato-response';
 import { CadastrarCampeonatoPage } from './cadastro-campeonato/cadastrar-campeonato';
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController } from "ionic-angular";
+import { NavController} from "ionic-angular";
 
 @Component({
     selector: 'page-campeonato',

@@ -2,7 +2,7 @@ import { CategoriaResponse } from './../../../../model/categoria/categoria-respo
 import { CategoriaService } from './../../../../core/service/categoria/categoria-service';
 import { CampeonatoResponse } from './../../../../model/campeonato/campeonato-response';
 import { Component, OnInit } from "@angular/core";
-import { ViewController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 
 @Component({

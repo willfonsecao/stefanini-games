@@ -1,3 +1,6 @@
+import { Key } from './../../core/infra/local-storage/key';
+import { UsuarioResponse } from './../../model/user/usuario';
+import { LocalStorageService } from './../../core/infra/local-storage/local-storage-service';
 import { Component } from '@angular/core';
 
 import { HomePage } from '../home/home';
@@ -17,7 +20,17 @@ export class TabsPage {
   ranking = RankingPage;
   adm = AdministracaoPage;
 
-  constructor() {
+  usuario: UsuarioResponse;
 
+  constructor(private localStorageService: LocalStorageService) {
+
+  }
+
+  isAdm() : boolean{
+    this.usuario = this.localStorageService.pull(Key.usuarioLogado);
+    if(this.usuario){
+      return this.usuario.administrador;
+    }
+    return false;
   }
 }

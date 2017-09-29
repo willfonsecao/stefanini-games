@@ -1,3 +1,5 @@
+import { UsuarioService } from './../core/service/user/user-service';
+import { LoginPage } from './../pages/login/login';
 import { CampeonatoPage } from './../pages/administracao/campeonato/campeonato';
 import { CategoriaPage } from './../pages/administracao/categoria/categoria';
 import { CategoriaService } from './../core/service/categoria/categoria-service';
@@ -22,6 +24,10 @@ import { CadastrarCampeonatoPage } from '../pages/administracao/campeonato/cadas
 import { CampeonatoService } from '../core/service/campeonato/campeonato-service';
 import { EditarCampeonatoPage } from '../pages/administracao/campeonato/editar-campeonato/editar-campeonato';
 import { VisualizarCampeonatoPage } from '../pages/inscricoes/visualizar-campeonato/visualizar-campeonato';
+import { LdapService } from '../core/service/login/ldap-Service';
+import { EditarPerfilPage } from '../pages/jogador/editar-perfil/editar-perfil';
+import { Camera } from '@ionic-native/camera';
+import { FileTransfer } from '@ionic-native/file-transfer';
 
 @NgModule({
   declarations: [
@@ -36,6 +42,8 @@ import { VisualizarCampeonatoPage } from '../pages/inscricoes/visualizar-campeon
     CadastrarCampeonatoPage,
     EditarCampeonatoPage,
     VisualizarCampeonatoPage,
+    EditarPerfilPage,
+    LoginPage,
     TabsPage
   ],
   imports: [
@@ -56,16 +64,22 @@ import { VisualizarCampeonatoPage } from '../pages/inscricoes/visualizar-campeon
     CadastrarCampeonatoPage,
     EditarCampeonatoPage,
     VisualizarCampeonatoPage,
+    EditarPerfilPage,
+    LoginPage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    FileTransfer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: XHRBackend, useClass: ExtendedXHRBackend},
     LocalStorageService,
     CategoriaService,
-    CampeonatoService
+    CampeonatoService,
+    UsuarioService,
+    LdapService
   ]
 })
 export class AppModule {}

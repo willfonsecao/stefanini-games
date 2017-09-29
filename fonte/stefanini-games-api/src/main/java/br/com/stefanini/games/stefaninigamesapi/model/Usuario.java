@@ -23,10 +23,13 @@ public class Usuario implements Serializable {
 	private Long id;
 	
 	@Column(name="FOTO")
-	private byte[] foto;
+	private boolean foto;
 	
 	@Column(name="NOME")
 	private String nome;
+
+	@Column(name="SOBRENOME")
+	private String sobrenome;
 	
 	@Column(name="NOME_REDE")
 	private String nomeRede;
@@ -38,6 +41,22 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "ID_TIME")
 	private Time time;
 	
+	public boolean isFoto() {
+		return foto;
+	}
+
+	public void setFoto(boolean foto) {
+		this.foto = foto;
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
+	}
+
 	public Time getTime() {
 		return time;
 	}
@@ -52,14 +71,6 @@ public class Usuario implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public byte[] getFoto() {
-		return foto;
-	}
-
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
 	}
 
 	public String getNome() {

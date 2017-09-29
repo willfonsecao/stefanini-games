@@ -6,15 +6,20 @@
   
   <ion-content padding>
     <h3>Adm</h3>
-    <ion-item-group class="adm-list">
-        <ion-item (click)="irCategorias()">
-            <ion-icon name="ios-arrow-forward" item-end></ion-icon>
-            Categorias
-        </ion-item>
-        <ion-item (click)="irCampeonatos()">
-            <ion-icon name="ios-arrow-forward" item-end></ion-icon>
-            Campeonatos
-        </ion-item>
-      </ion-item-group>
+
+    <ion-list-header class="text-blue" (click)="irCategorias()">
+        <ion-icon name='ios-albums-outline' item-start></ion-icon>
+        Categorias
+        <ion-icon name='ios-arrow-forward' item-end></ion-icon>
+    </ion-list-header>
+    <br>
+    
+    <ion-list-header class="text-blue" (click)="irCampeonatos()">
+        <ion-icon name='ios-game-controller-b-outline' item-start></ion-icon>
+        Campeonatos
+        <ion-icon name='ios-arrow-forward' item-end></ion-icon>
+    </ion-list-header>
+    <br>
+
   </ion-content>
   

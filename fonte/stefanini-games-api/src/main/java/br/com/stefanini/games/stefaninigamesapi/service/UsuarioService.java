@@ -22,4 +22,12 @@ public class UsuarioService {
 		return usuarioRepository.findAll();
 	}
 	
+	public Usuario findById(Long id){
+		return usuarioRepository.findById(id);
+	}
+
+	public Usuario findByUsername(String username){
+		return usuarioRepository.findByUsername(username);
+	}
+	
 }
