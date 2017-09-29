@@ -48,16 +48,8 @@ public class CampeonatoService {
 	public void inscrever(Long idUsuario, Long idCampeonato){
 		Campeonato campeonato = campeonatoRepository.findOne(idCampeonato);
 		Usuario usuario = usuarioRepository.findOne(idUsuario);
-		
-		Time time = new Time();
-		time.setCampeonato(campeonato);
-		time = timeRepository.save(time);
-		
-		Jogador jogador = new Jogador();
-		jogador.setUsuario(usuario);
-		jogador.setTime(time);
-		jogadorRepository.save(jogador);
-
+		Time time = criarTime(campeonato);
+		criarJogador(usuario, time);
 	}
 	
 	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(Long idUsuario, Date dataAtual){
@@ -71,6 +63,20 @@ public class CampeonatoService {
 		timeRepository.delete(time.getId());
 	}
 
+	private void criarJogador(Usuario usuario, Time time) {
+		Jogador jogador = new Jogador();
+		jogador.setUsuario(usuario);
+		jogador.setTime(time);
+		jogadorRepository.save(jogador);
+	}
+
+	private Time criarTime(Campeonato campeonato) {
+		Time time = new Time();
+		time.setCampeonato(campeonato);
+		time = timeRepository.save(time);
+		return time;
+	}
+	
 	public void delete(Long id){
 		this.campeonatoRepository.delete(id);
 	}
