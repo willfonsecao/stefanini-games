@@ -47,6 +47,11 @@ public class UsuarioController {
 	public Usuario save(@RequestBody Usuario usuario){
 		return usuarioService.save(usuario);
 	}
+
+	@PostMapping(path = "/adm")
+	public void saveAdm(@RequestParam("username") String username){
+		usuarioService.saveAdm(username);
+	}
 	
 	@PostMapping(path = "/photo")
 	public void savePhoto(@RequestParam("file") MultipartFile file) {
