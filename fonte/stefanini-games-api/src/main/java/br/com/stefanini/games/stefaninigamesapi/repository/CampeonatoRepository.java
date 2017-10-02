@@ -20,4 +20,21 @@ public interface CampeonatoRepository extends JpaRepository<Campeonato, Long> {
 			+ " AND campeonato.dataFimInscricoes >= :dataAtual")
 	public List<Campeonato> getCampeonatosAbertosInscricao(@Param("idUsuario") Long idUsuario,@Param("dataAtual") Date dataAtual);
 
+	@Query(value="select distinct campeonato "
+			+ " FROM Campeonato campeonato "
+			+ " WHERE campeonato.dataInicioInscricoes <= :dataAtual"
+			+ " AND campeonato.dataFimInscricoes >= :dataAtual")
+	public List<Campeonato> getCampeonatosAbertos(@Param("dataAtual") Date dataAtual);
+
+	@Query(value="select distinct campeonato "
+			+ " FROM Campeonato campeonato "
+			+ " WHERE campeonato.dataFimInscricoes <= :dataAtual"
+			+ " AND campeonato.dataInicio >= :dataAtual")
+	public List<Campeonato> getCampeonatosInscricaoEncerrada(@Param("dataAtual") Date dataAtual);
+
+	@Query(value="select distinct campeonato "
+			+ " FROM Campeonato campeonato "
+			+ " WHERE campeonato.dataInicio <= :dataAtual")
+	public List<Campeonato> getCampeonatosIniciados(@Param("dataAtual") Date dataAtual);
+
 }

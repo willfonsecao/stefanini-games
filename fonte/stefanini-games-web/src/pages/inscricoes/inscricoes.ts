@@ -69,6 +69,10 @@ import { NavController } from "ionic-angular";
       });
     }
 
+    getLogo(categoria: CategoriaResponse){
+       return 'data:image/jpg;base64,' + categoria.logo;
+    }
+
     atualizarInscrito(campAberto: CampeonatoResponse){
       
       if(this.campeonatosInscrito) {

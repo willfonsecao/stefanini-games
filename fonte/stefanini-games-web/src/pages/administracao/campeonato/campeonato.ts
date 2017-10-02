@@ -11,7 +11,9 @@ import { NavController} from "ionic-angular";
   })
   export class CampeonatoPage implements OnInit{
 
-    campeonatos: CampeonatoResponse[];
+    campeonatos: CampeonatoResponse[] = [];
+    campeonatosAbertos: CampeonatoResponse[] = [];
+    campeonatosIniciados: CampeonatoResponse[] = [];
 
     constructor(public navCtrl: NavController,
                 private campeonatoService: CampeonatoService) {
@@ -19,11 +21,25 @@ import { NavController} from "ionic-angular";
     }
     
     ngOnInit(): void {
-      this.buscar()
+      this.buscarFechados();
+      this.buscarAbertos();
+      this.buscarIniciados();
     }
 
-    buscar(){
-      this.campeonatoService.buscar(c => { this.campeonatos = c})
+    buscarFechados(){
+      this.campeonatoService.getCampeonatosFechados(c => { this.campeonatos = c})
+    }
+
+    buscarAbertos(){
+      this.campeonatoService.getCampeonatosAbertos(campeonatos =>{
+          this.campeonatosAbertos = campeonatos;
+      })
+    }
+
+    buscarIniciados(){
+      this.campeonatoService.getCampeonatosIniciados(iniciados =>{
+        this.campeonatosIniciados = iniciados;
+      })
     }
 
     editar(campeonato){

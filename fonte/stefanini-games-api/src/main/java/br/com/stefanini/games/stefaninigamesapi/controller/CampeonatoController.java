@@ -55,4 +55,19 @@ public class CampeonatoController {
 		return this.campeonatoService.getCampeonatosAbertosInscricao(idUsuario,new Date());
 	}
 
+	@GetMapping(path = "/abertos")
+	public List<CampeonatoDTOResponse> getCampeonatosAbertos(){
+		return this.campeonatoService.getCampeonatosAbertos();
+	}
+
+	@GetMapping(path = "/fechados")
+	public List<CampeonatoDTOResponse> getCampeonatosInscricaoEncerrada(){
+		return this.campeonatoService.getCampeonatosInscricaoEncerrada();
+	}
+
+	@GetMapping(path = "/iniciados")
+	public List<CampeonatoDTOResponse> getCampeonatosIniciados(){
+		return this.campeonatoService.getCampeonatosIniciados();
+	}
+
 }

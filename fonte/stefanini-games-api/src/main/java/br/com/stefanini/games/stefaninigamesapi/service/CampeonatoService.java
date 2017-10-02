@@ -57,6 +57,24 @@ public class CampeonatoService {
 					.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
 					.collect(Collectors.toList());
 	}
+
+	public List<CampeonatoDTOResponse> getCampeonatosAbertos(){
+		return this.campeonatoRepository.getCampeonatosAbertos(new Date())
+				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
+				.collect(Collectors.toList());
+	}
+
+	public List<CampeonatoDTOResponse> getCampeonatosInscricaoEncerrada(){
+		return this.campeonatoRepository.getCampeonatosInscricaoEncerrada(new Date())
+				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
+				.collect(Collectors.toList());
+	}
+
+	public List<CampeonatoDTOResponse> getCampeonatosIniciados(){
+		return this.campeonatoRepository.getCampeonatosIniciados(new Date())
+				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
+				.collect(Collectors.toList());
+	}
 	
 	public void cancelarInscricao(Long idUsuario, Long idCampeonato){
 		Time time = timeRepository.getTime(idUsuario, idCampeonato);
