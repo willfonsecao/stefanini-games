@@ -19,12 +19,13 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
-	public void saveAdm(String username) {
+	public Usuario saveAdm(String username) {
 		Usuario usuario = this.findByUsername(username);
 		if(validarUsuario(usuario)){
 			usuario.setAdministrador(true);
-			usuarioRepository.save(usuario);
+			return usuarioRepository.save(usuario);
 		}
+		return null;
 	}
 	
 	private boolean validarUsuario(Usuario usuario){
@@ -44,6 +45,18 @@ public class UsuarioService {
 
 	public Usuario findByUsername(String username){
 		return usuarioRepository.findByUsername(username);
+	}
+
+	public List<Usuario> getAdms(){
+		return usuarioRepository.getAdms();
+	}
+	
+	public void removerAdm(String username) {
+		Usuario usuario = this.findByUsername(username);
+		if (validarUsuario(usuario)) {
+			usuario.setAdministrador(false);
+			usuarioRepository.save(usuario);
+		}
 	}
 	
 	public void savedPhoto(String username){

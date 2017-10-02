@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,14 +44,19 @@ public class UsuarioController {
 		return usuarioService.findByUsername(username);
 	}
 	
+	@GetMapping(path = "/administradores")
+	public List<Usuario> getAdms(){
+		return usuarioService.getAdms();
+	}
+	
 	@PostMapping
 	public Usuario save(@RequestBody Usuario usuario){
 		return usuarioService.save(usuario);
 	}
 
-	@PostMapping(path = "/adm")
-	public void saveAdm(@RequestParam("username") String username){
-		usuarioService.saveAdm(username);
+	@PostMapping(path = "/adm/{username}")
+	public Usuario saveAdm(@PathVariable("username") String username){
+		return usuarioService.saveAdm(username);
 	}
 	
 	@PostMapping(path = "/photo")
@@ -58,6 +64,11 @@ public class UsuarioController {
 		writeFile("c:\\foto\\", file);
 		String username = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
 		usuarioService.savedPhoto(username);
+	}
+	
+	@DeleteMapping(path = "/adm/{username}")
+	public void removerAdm(@PathVariable String username){
+		usuarioService.removerAdm(username);
 	}
 	
 	private void writeFile(String local, MultipartFile file) {

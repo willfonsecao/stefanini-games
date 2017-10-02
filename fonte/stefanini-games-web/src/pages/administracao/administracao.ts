@@ -1,3 +1,4 @@
+import { AdministradoresPage } from './administradores/administradores';
 import { CampeonatoPage } from './campeonato/campeonato';
 import { CategoriaPage } from './categoria/categoria';
 import { NavController } from "ionic-angular";
@@ -20,6 +21,10 @@ import { Component } from "@angular/core";
     
     irCampeonatos(){
       this.navCtrl.push(CampeonatoPage);
+    }
+
+    irAdministradores(){
+      this.navCtrl.push(AdministradoresPage);
     }
   
   }

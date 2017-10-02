@@ -28,6 +28,7 @@ import { LdapService } from '../core/service/login/ldap-Service';
 import { EditarPerfilPage } from '../pages/jogador/editar-perfil/editar-perfil';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
+import { AdministradoresPage } from '../pages/administracao/administradores/administradores';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
     VisualizarCampeonatoPage,
     EditarPerfilPage,
     LoginPage,
+    AdministradoresPage,
     TabsPage
   ],
   imports: [
@@ -66,6 +68,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
     VisualizarCampeonatoPage,
     EditarPerfilPage,
     LoginPage,
+    AdministradoresPage,
     TabsPage
   ],
   providers: [

@@ -13,10 +13,20 @@ export class UsuarioService {
 
     }
 
-    cadastrar(categoria: UsuarioResponse, handlerSucess: (value: any) => void): void {
+    cadastrar(usuario: UsuarioResponse, handlerSucess: (value: any) => void): void {
         new HttpConnectionBuilder<any>(this.http, this.loadingCtrl)
             .addEndPoint('usuarios')
-            .addParameter(categoria)
+            .addParameter(usuario)
+            .addToastrUtil(this.toastCtrl)
+            .addHandlerSucess(handlerSucess)
+            .generateParametersJson()
+            .showToastSucess()
+            .buildPost();
+    }
+    
+    salvarAdm(username: string, handlerSucess: (value: UsuarioResponse) => void): void {
+        new HttpConnectionBuilder<UsuarioResponse>(this.http, this.loadingCtrl)
+            .addEndPoint('usuarios/adm/'+username)
             .addToastrUtil(this.toastCtrl)
             .addHandlerSucess(handlerSucess)
             .generateParametersJson()
@@ -35,6 +45,14 @@ export class UsuarioService {
     buscar(handlerSucess: (value: UsuarioResponse[]) => void): void {
         new HttpConnectionBuilder<UsuarioResponse[]>(this.http, this.loadingCtrl)
             .addEndPoint('usuarios')
+            .addToastrUtil(this.toastCtrl)
+            .addHandlerSucess(handlerSucess)
+            .buildGet();
+    }
+    
+    buscarAdms(handlerSucess: (value: UsuarioResponse[]) => void): void {
+        new HttpConnectionBuilder<UsuarioResponse[]>(this.http, this.loadingCtrl)
+            .addEndPoint('usuarios/administradores')
             .addToastrUtil(this.toastCtrl)
             .addHandlerSucess(handlerSucess)
             .buildGet();
@@ -61,6 +79,16 @@ export class UsuarioService {
             .addEndPoint('usuarios/'+ pessoaID)
             .addToastrUtil(this.toastCtrl)
             .addHandlerSucess(handlerSucess)
+            .buildDelete();
+    }
+
+    removerAdm(username: string, handlerSucess: (value: any) => void): void {
+        new HttpConnectionBuilder<any>(this.http, this.loadingCtrl)
+            .addEndPoint('usuarios/adm/'+username)
+            .addToastrUtil(this.toastCtrl)
+            .addHandlerSucess(handlerSucess)
+            .generateParametersJson()
+            .showToastSucess()
             .buildDelete();
     }
 }
