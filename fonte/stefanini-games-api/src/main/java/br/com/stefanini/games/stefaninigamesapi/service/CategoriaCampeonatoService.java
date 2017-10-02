@@ -33,6 +33,12 @@ public class CategoriaCampeonatoService {
 		return this.categoriaRepository.save(categoria);
 	}
 	
+	public void saveLogo(String idCategoria, byte[] bytes){
+		CategoriaCampeonato categoria = categoriaRepository.findOne(Long.valueOf(idCategoria));
+		categoria.setLogo(bytes);
+		categoriaRepository.save(categoria);
+	}
+
 	public void delete(Long id){
 		this.categoriaRepository.delete(id);
 	}

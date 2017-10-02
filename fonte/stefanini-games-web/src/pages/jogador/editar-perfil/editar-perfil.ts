@@ -59,7 +59,7 @@ export class EditarPerfilPage {
                       });
                   }
               }, {
-              text: 'Cancel',
+              text: 'Cancelar',
               role: 'cancel',
               handler: () => {
 
@@ -105,7 +105,7 @@ export class EditarPerfilPage {
     configurarOptionsBiblioteca(){
         this.optionsBiblioteca = {
             quality: 50,
-            destinationType: this.camera.DestinationType.DATA_URL,
+            destinationType: this.camera.DestinationType.FILE_URI,
             encodingType: this.camera.EncodingType.JPEG,
             mediaType: this.camera.MediaType.PICTURE,
             sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
