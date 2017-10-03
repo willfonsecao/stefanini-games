@@ -73,13 +73,13 @@ export class EditarPerfilPage {
     upload() {
         let options: FileUploadOptions = {
             fileKey: 'file',
-            fileName: this.usuario.nomeRede+'.jpg',
+            fileName: this.usuario.nomeRede,
             headers: {}
         }
       
         this.fileTransfer.upload(this.imageUsuario, EndPointUtil.endPointGames+'usuarios/photo', options)
             .then((data) => {
-                this.urlImageUsuario = this.imageUsuario;
+                this.urlImageUsuario = 'data:image/jpg;base64,' + this.imageUsuario;
             }, (err) => {
                 // error
             })
@@ -89,7 +89,7 @@ export class EditarPerfilPage {
         if(!this.usuario.foto) {
             this.urlImageUsuario = 'assets/user.jpg';
         }
-        this.urlImageUsuario = EndPointUtil.endPointImages + this.usuario.nomeRede + '.jpg';
+        this.urlImageUsuario = 'data:image/jpg;base64,' + this.usuario.foto;
     }
     
     configurarOptionsCamera() {

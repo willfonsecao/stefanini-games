@@ -82,6 +82,22 @@ export class CampeonatoService {
             .buildGet();
     }
     
+    getCampeonatosFinalizados(handlerSucess: (value: CampeonatoResponse[]) => void): void {
+        new HttpConnectionBuilder<CampeonatoResponse[]>(this.http, this.loadingCtrl)
+            .addEndPoint('campeonatos/finalizados')
+            .addToastrUtil(this.toastCtrl)
+            .addHandlerSucess(handlerSucess)
+            .buildGet();
+    }
+   
+    getCampeonatosFuturos(handlerSucess: (value: CampeonatoResponse[]) => void): void {
+        new HttpConnectionBuilder<CampeonatoResponse[]>(this.http, this.loadingCtrl)
+            .addEndPoint('campeonatos/futuros')
+            .addToastrUtil(this.toastCtrl)
+            .addHandlerSucess(handlerSucess)
+            .buildGet();
+    }
+    
 
     deletar(campeonatoId: number, handlerSucess: (value: any) => void): void {
         new HttpConnectionBuilder<any>(this.http, this.loadingCtrl)
