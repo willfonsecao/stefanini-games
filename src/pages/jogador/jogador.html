@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title><img src="assets/logo-stefanini-games.svg"></ion-title>
+  </ion-navbar>
+</ion-header>
+
+  <ion-content padding>
+    <ion-row (click)="logout()">
+      <ion-col col-6 class="text-blue">
+        Olá, {{getUsuarioName()}}
+      </ion-col>
+      <ion-col col-6 class="text-right text-red">
+        Sair <ion-icon name='ios-power' item-end></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <h3>Meu Perfil</h3>
+
+    <ion-list-header class="text-blue" (click)="editarPerfil()">
+      <ion-icon name='ios-contact-outline' item-start></ion-icon>
+      Editar Perfil
+      <ion-icon name='ios-arrow-forward' item-end></ion-icon>
+    </ion-list-header>
+    <br>
+
+  </ion-content>

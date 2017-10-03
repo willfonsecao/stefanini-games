@@ -1,0 +1,103 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title><img src="assets/logo-stefanini-games.svg"></ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item-group class="adm-list">
+        <ion-item (click)="irCadastrarCampeonatos()">
+            <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+            Novo Campeonato
+        </ion-item>
+    </ion-item-group>
+
+    <ion-list>
+        <ion-list-header class="text-blue">
+                Inscrições Abertas
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let item of campeonatosAbertos">
+            <ion-item>
+                <ion-icon name="ios-arrow-dropleft" color="muted" item-end></ion-icon>
+                <h2 class="text-muted">{{item.categoria.nome}} - Edição: {{item.edicao}}</h2>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="edit" (click)="editar({campeonato: item})">
+                        <ion-icon name="ios-create-outline"></ion-icon>
+                        Editar
+                      </button>
+                <button ion-button color="danger" (click)="excluir(item)">
+                        <ion-icon name="ios-close"></ion-icon>
+                        Excluir
+                      </button>
+                <button ion-button color="primary">
+                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+                        Gerar Jogos
+                      </button>
+            </ion-item-options>
+            <ion-item *ngIf="campeonatosAbertos.length == 0">
+                <h2 class="text-muted">Não existem campeonatos.</h2>
+            </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+   
+    <ion-list>
+        <ion-list-header class="text-blue">
+                Inscrições Encerradas
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let item of campeonatos">
+            <ion-item>
+                <ion-icon name="ios-arrow-dropleft" color="muted" item-end></ion-icon>
+                <h2 class="text-muted">{{item.categoria.nome}} - Edição: {{item.edicao}}</h2>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="edit" (click)="editar({campeonato: item})">
+                        <ion-icon name="ios-create-outline"></ion-icon>
+                        Editar
+                      </button>
+                <button ion-button color="danger" (click)="excluir(item)">
+                        <ion-icon name="ios-close"></ion-icon>
+                        Excluir
+                      </button>
+                <button ion-button color="primary">
+                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+                        Gerar Jogos
+                      </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item *ngIf="campeonatos.length == 0">
+            <h2 class="text-muted">Não existem campeonatos.</h2>
+        </ion-item>
+    </ion-list>
+    
+    <ion-list>
+        <ion-list-header class="text-blue">
+                Campeonatos Iniciados
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let item of campeonatosIniciados">
+            <ion-item>
+                <ion-icon name="ios-arrow-dropleft" color="muted" item-end></ion-icon>
+                <h2 class="text-muted">{{item.categoria.nome}} - Edição: {{item.edicao}}</h2>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="edit" (click)="editar({campeonato: item})">
+                        <ion-icon name="ios-create-outline"></ion-icon>
+                        Editar
+                      </button>
+                <button ion-button color="danger" (click)="excluir(item)">
+                        <ion-icon name="ios-close"></ion-icon>
+                        Excluir
+                      </button>
+                <button ion-button color="primary">
+                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+                        Gerar Jogos
+                      </button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item *ngIf="campeonatosIniciados.length == 0">
+            <h2 class="text-muted">Não existem campeonatos.</h2>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

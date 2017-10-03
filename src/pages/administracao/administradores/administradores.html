@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title><img src="assets/logo-stefanini-games.svg"></ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-item>
+            <button ion-button color="secondary" item-end  [disabled]="isNomeInvalido()" (click)="salvar()">Salvar</button>
+            <ion-input type="text" placeholder="Username" [(ngModel)]="username"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item-sliding *ngFor="let item of administradores">
+            <ion-item>
+                <ion-icon name="ios-arrow-dropleft" color="muted" item-end></ion-icon>
+                <h2 class="text-muted">{{item.nome}}</h2>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="danger" (click)="excluir(item)">
+                  <ion-icon name="ios-close"></ion-icon>
+                  Excluir
+            </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+</ion-content>
