@@ -70,4 +70,14 @@ public class CampeonatoController {
 		return this.campeonatoService.getCampeonatosIniciados();
 	}
 
+	@GetMapping(path = "/finalizados")
+	public List<CampeonatoDTOResponse> getCampeonatosFinalizados(){
+		return this.campeonatoService.getCampeonatosFinalizados();
+	}
+
+	@GetMapping(path = "/futuros")
+	public List<CampeonatoDTOResponse> getCampeonatosInscricaoFutura(){
+		return this.campeonatoService.getCampeonatosInscricaoFutura();
+	}
+
 }
