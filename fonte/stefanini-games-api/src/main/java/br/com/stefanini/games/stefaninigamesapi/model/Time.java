@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "TIME")
 public class Time implements Serializable{
@@ -46,7 +44,6 @@ public class Time implements Serializable{
 	@OneToMany(mappedBy="perdedor")
 	private Set<Jogo> jogosPerdidos = new HashSet<>();
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "ID_CAMPEONATO")
 	private Campeonato campeonato;

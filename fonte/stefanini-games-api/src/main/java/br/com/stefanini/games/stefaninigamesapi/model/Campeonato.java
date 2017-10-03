@@ -84,23 +84,12 @@ public class Campeonato implements Serializable{
 	@OneToMany(mappedBy = "campeonato")
 	private Set<Etapa> etapas = new HashSet<>();
 
-	@OneToMany(mappedBy = "campeonato")
-	private Set<Time> inscritos = new HashSet<>();
-	
-	public Set<Time> getInscritos() {
-		return inscritos;
-	}
-
 	public Long getMaxInscritos() {
 		return maxInscritos;
 	}
 
 	public void setMaxInscritos(Long maxInscritos) {
 		this.maxInscritos = maxInscritos;
-	}
-
-	public void setInscritos(Set<Time> inscritos) {
-		this.inscritos = inscritos;
 	}
 
 	private String construirEdicao() {

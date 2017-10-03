@@ -52,10 +52,11 @@ public class CampeonatoService {
 		criarJogador(usuario, time);
 	}
 	
-	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(Long idUsuario, Date dataAtual){
-		 return this.campeonatoRepository.getCampeonatosAbertosInscricao(idUsuario, dataAtual)
-					.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
-					.collect(Collectors.toList());
+	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(Long idUsuario, Date dataAtual) {
+		List<Time> times = timeRepository.getCampeonatosInscrito(idUsuario, dataAtual);
+		List<CampeonatoDTOResponse> camps = new ArrayList<>();
+		times.stream().forEach((time) -> camps.add(new CampeonatoDTOResponse(time.getCampeonato())));
+		return camps;
 	}
 
 	public List<CampeonatoDTOResponse> getCampeonatosAbertos(){

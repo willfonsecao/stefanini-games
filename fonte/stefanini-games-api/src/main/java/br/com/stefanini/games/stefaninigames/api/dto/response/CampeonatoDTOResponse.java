@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
@@ -36,7 +35,6 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.etapas = campeonato.getEtapas();
 		this.edicao = campeonato.getEdicao();
 		this.maxInscritos = campeonato.getMaxInscritos();
-		this.inscritos = campeonato.getInscritos();
 	}
 
 	private Long id;
@@ -66,9 +64,6 @@ public class CampeonatoDTOResponse implements Serializable {
 
 	private Set<Etapa> etapas = new HashSet<>();
 	
-	@JsonBackReference
-	private Set<Time> inscritos = new HashSet<>();
-
 	private String edicao;
 	
 	private Long maxInscritos;
@@ -91,14 +86,6 @@ public class CampeonatoDTOResponse implements Serializable {
 
 	public void setGerarJogos(boolean isGerarJogos) {
 		this.isGerarJogos = isGerarJogos;
-	}
-
-	public Set<Time> getInscritos() {
-		return inscritos;
-	}
-
-	public void setInscritos(Set<Time> inscritos) {
-		this.inscritos = inscritos;
 	}
 
 	public Long getMaxInscritos() {
