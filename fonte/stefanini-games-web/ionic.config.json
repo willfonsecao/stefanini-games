@@ -1,0 +1,8 @@
+{
+  "name": "stefanini-games-web",
+  "app_id": "5dab3276",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
