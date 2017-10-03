@@ -79,7 +79,7 @@ export class EditarPerfilPage {
       
         this.fileTransfer.upload(this.imageUsuario, EndPointUtil.endPointGames+'usuarios/photo', options)
             .then((data) => {
-                this.urlImageUsuario = this.imageUsuario;
+                this.urlImageUsuario = 'data:image/jpg;base64,' + this.imageUsuario;
             }, (err) => {
                 // error
             })
@@ -89,7 +89,7 @@ export class EditarPerfilPage {
         if(!this.usuario.foto) {
             this.urlImageUsuario = 'assets/user.jpg';
         }
-        this.urlImageUsuario = this.usuario.foto;
+        this.urlImageUsuario = 'data:image/jpg;base64,' + this.usuario.foto;
     }
     
     configurarOptionsCamera() {

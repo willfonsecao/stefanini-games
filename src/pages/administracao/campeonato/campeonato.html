@@ -24,17 +24,17 @@
             </ion-item>
             <ion-item-options side="right">
                 <button ion-button color="edit" (click)="editar({campeonato: item})">
-                        <ion-icon name="ios-create-outline"></ion-icon>
-                        Editar
-                      </button>
+                    <ion-icon name="ios-create-outline"></ion-icon>
+                    Editar
+                </button>
                 <button ion-button color="danger" (click)="excluir(item)">
-                        <ion-icon name="ios-close"></ion-icon>
-                        Excluir
-                      </button>
-                <button ion-button color="primary">
-                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-                        Gerar Jogos
-                      </button>
+                    <ion-icon name="ios-close"></ion-icon>
+                    Excluir
+                </button>
+                <button ion-button color="primary" *ngIf="item.isGerarJogos">
+                    <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+                    Gerar Jogos
+                </button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
@@ -50,17 +50,17 @@
             </ion-item>
             <ion-item-options side="right">
                 <button ion-button color="edit" (click)="editar({campeonato: item})">
-                        <ion-icon name="ios-create-outline"></ion-icon>
-                        Editar
-                      </button>
+                    <ion-icon name="ios-create-outline"></ion-icon>
+                    Editar
+                </button>
                 <button ion-button color="danger" (click)="excluir(item)">
-                        <ion-icon name="ios-close"></ion-icon>
-                        Excluir
-                      </button>
-                <button ion-button color="primary">
-                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-                        Gerar Jogos
-                      </button>
+                    <ion-icon name="ios-close"></ion-icon>
+                    Excluir
+                </button>
+                <button ion-button color="primary" *ngIf="item.isGerarJogos">
+                    <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+                    Gerar Jogos
+                </button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
@@ -76,17 +76,13 @@
             </ion-item>
             <ion-item-options side="right">
                 <button ion-button color="edit" (click)="editar({campeonato: item})">
-                        <ion-icon name="ios-create-outline"></ion-icon>
-                        Editar
-                      </button>
+                    <ion-icon name="ios-create-outline"></ion-icon>
+                    Editar
+                </button>
                 <button ion-button color="danger" (click)="excluir(item)">
-                        <ion-icon name="ios-close"></ion-icon>
-                        Excluir
-                      </button>
-                <button ion-button color="primary">
-                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-                        Gerar Jogos
-                      </button>
+                    <ion-icon name="ios-close"></ion-icon>
+                    Excluir
+                </button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
@@ -102,17 +98,17 @@
             </ion-item>
             <ion-item-options side="right">
                 <button ion-button color="edit" (click)="editar({campeonato: item})">
-                        <ion-icon name="ios-create-outline"></ion-icon>
-                        Editar
-                      </button>
+                    <ion-icon name="ios-create-outline"></ion-icon>
+                    Editar
+                </button>
                 <button ion-button color="danger" (click)="excluir(item)">
-                        <ion-icon name="ios-close"></ion-icon>
-                        Excluir
-                      </button>
-                <button ion-button color="primary">
-                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-                        Gerar Jogos
-                      </button>
+                    <ion-icon name="ios-close"></ion-icon>
+                    Excluir
+                </button>
+                <button ion-button color="primary" *ngIf="item.isGerarJogos">
+                    <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+                    Gerar Jogos
+                </button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
@@ -128,17 +124,13 @@
             </ion-item>
             <ion-item-options side="right">
                 <button ion-button color="edit" (click)="editar({campeonato: item})">
-                        <ion-icon name="ios-create-outline"></ion-icon>
-                        Editar
-                      </button>
+                    <ion-icon name="ios-create-outline"></ion-icon>
+                    Editar
+                </button>
                 <button ion-button color="danger" (click)="excluir(item)">
-                        <ion-icon name="ios-close"></ion-icon>
-                        Excluir
-                      </button>
-                <button ion-button color="primary">
-                        <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-                        Gerar Jogos
-                      </button>
+                    <ion-icon name="ios-close"></ion-icon>
+                    Excluir
+                </button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>

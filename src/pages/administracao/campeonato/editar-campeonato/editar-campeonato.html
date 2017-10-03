@@ -13,6 +13,13 @@
                     </ion-select>
                 </ion-item>
             </ion-list>
+
+            <ion-list>
+                <ion-item>
+                    <ion-label floating color="muted">Máximo de Inscritos</ion-label>
+                    <ion-input type="number" [(ngModel)]="campeonato.maxInscritos" ></ion-input>
+                </ion-item>
+            </ion-list>
         
             <ion-list>
                 <ion-item>
@@ -57,5 +64,7 @@
                                 monthShortNames="{{siglaMeses}}"></ion-datetime>
                 </ion-item>
             </span>
-
 </ion-content>
+<ion-footer>
+    <ion-title><button col-12 ion-button color="secondary" (click)="salvar()">Salvar</button></ion-title>
+</ion-footer>
