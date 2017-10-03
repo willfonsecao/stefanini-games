@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title><img src="assets/logo-stefanini-games.svg"></ion-title>
+        <ion-title><img src="../assets/logo-stefanini-games.svg"></ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -13,7 +13,7 @@
         </ion-item>
     </ion-item-group>
 
-    <ion-list>
+    <ion-list *ngIf="campeonatosAbertos.length > 0">
         <ion-list-header class="text-blue">
                 Inscrições Abertas
         </ion-list-header>
@@ -36,13 +36,10 @@
                         Gerar Jogos
                       </button>
             </ion-item-options>
-            <ion-item *ngIf="campeonatosAbertos.length == 0">
-                <h2 class="text-muted">Não existem campeonatos.</h2>
-            </ion-item>
         </ion-item-sliding>
     </ion-list>
    
-    <ion-list>
+    <ion-list *ngIf="campeonatos.length > 0">
         <ion-list-header class="text-blue">
                 Inscrições Encerradas
         </ion-list-header>
@@ -66,12 +63,9 @@
                       </button>
             </ion-item-options>
         </ion-item-sliding>
-        <ion-item *ngIf="campeonatos.length == 0">
-            <h2 class="text-muted">Não existem campeonatos.</h2>
-        </ion-item>
     </ion-list>
     
-    <ion-list>
+    <ion-list *ngIf="campeonatosIniciados.length > 0">
         <ion-list-header class="text-blue">
                 Campeonatos Iniciados
         </ion-list-header>
@@ -95,9 +89,6 @@
                       </button>
             </ion-item-options>
         </ion-item-sliding>
-        <ion-item *ngIf="campeonatosIniciados.length == 0">
-            <h2 class="text-muted">Não existem campeonatos.</h2>
-        </ion-item>
     </ion-list>
 
 </ion-content>
