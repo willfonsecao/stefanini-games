@@ -15,5 +15,8 @@ export class CampeonatoResponse {
     edicao: string;
     inscritos: TimeResponse[] = [];
     isInscrito: boolean;
+    maxInscritos: number;
+    isGerarJogos: boolean;
+    isVagasPreenchidas: boolean;
 
 }

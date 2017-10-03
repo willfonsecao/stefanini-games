@@ -16,8 +16,8 @@ import { NavController } from "ionic-angular";
   })
   export class InscricoesPage implements OnInit {
 
-    categorias: CategoriaResponse[];
-    campeonatosInscrito: CampeonatoResponse[];
+    categorias: CategoriaResponse[] = [];
+    campeonatosInscrito: CampeonatoResponse[] = [];
     isUsuarioInscrito: boolean;  
       
     constructor(public navCtrl: NavController,
@@ -47,6 +47,7 @@ import { NavController } from "ionic-angular";
       let usuario = this.getUsuario();
       camp.isInscrito = true;
       this.campeonatoService.inscrever(usuario.id,camp.id,(value)=>{
+        this.buscarAbertas();
       });
     }
 

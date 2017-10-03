@@ -1,9 +1,12 @@
+import { NavController } from 'ionic-angular';
+import { CampeonatoService } from './../../../../core/service/campeonato/campeonato-service';
 import { CategoriaResponse } from './../../../../model/categoria/categoria-response';
 import { CategoriaService } from './../../../../core/service/categoria/categoria-service';
 import { CampeonatoResponse } from './../../../../model/campeonato/campeonato-response';
 import { Component, OnInit } from "@angular/core";
 import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
+import { CampeonatoPage } from '../campeonato';
 
 @Component({
     selector: 'page-editar-campeonato',
@@ -25,7 +28,9 @@ import * as moment from 'moment';
     minDataFim: string;
 
     constructor(private params: NavParams,
-                private categoriaService: CategoriaService){
+                private navCtrl: NavController,
+                private categoriaService: CategoriaService,
+                private campeonatoService: CampeonatoService){
 
         this.campeonato = this.params.get('campeonato');
         
@@ -55,6 +60,20 @@ import * as moment from 'moment';
         this.minIncricoesFim = moment(this.campeonato.dataFimInscricoes).format('YYYY-MM-DD');
         this.minDataInicio = moment(this.campeonato.dataInicio).format('YYYY-MM-DD');
         this.minDataFim = moment(this.campeonato.dataFim).format('YYYY-MM-DD');
+    }
+
+    salvar(){
+        this.popularCampeonato();
+        this.campeonatoService.cadastrar(this.campeonato,()=>{
+            this.navCtrl.push(CampeonatoPage);
+        });
+    }
+
+    popularCampeonato(){
+        this.campeonato.dataInicio = new Date(Date.parse(this.dataInicio));
+        this.campeonato.dataFim = new Date(Date.parse(this.dataFim));
+        this.campeonato.dataInicioInscricoes = new Date(Date.parse(this.dataInicioInscricao));
+        this.campeonato.dataFimInscricoes = new Date(Date.parse(this.dataFimInscricao));
     }
 
   }
