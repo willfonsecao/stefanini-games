@@ -73,7 +73,7 @@ export class EditarPerfilPage {
     upload() {
         let options: FileUploadOptions = {
             fileKey: 'file',
-            fileName: this.usuario.nomeRede+'.jpg',
+            fileName: this.usuario.nomeRede,
             headers: {}
         }
       
@@ -89,7 +89,7 @@ export class EditarPerfilPage {
         if(!this.usuario.foto) {
             this.urlImageUsuario = 'assets/user.jpg';
         }
-        this.urlImageUsuario = EndPointUtil.endPointImages + this.usuario.nomeRede + '.jpg';
+        this.urlImageUsuario = this.usuario.foto;
     }
     
     configurarOptionsCamera() {

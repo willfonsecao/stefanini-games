@@ -2,7 +2,7 @@ import { ADUserDTO } from './ADUserDTO';
 export class UsuarioResponse {
     
     id: number;
-    foto: boolean;
+    foto: string;
     nome: string;
     sobrenome: string;
     nomeRede: string;
@@ -13,7 +13,6 @@ export class UsuarioResponse {
         this.sobrenome = adUser.lastName;
         this.nomeRede = adUser.username;
         this.administrador = isAdm;
-        this.foto = false;
     }
 
 }
