@@ -59,9 +59,9 @@ public class UsuarioService {
 		}
 	}
 	
-	public void savedPhoto(String username){
+	public void savedPhoto(String username, byte[] bytes){
 		Usuario usuario = usuarioRepository.findByUsername(username);
-		usuario.setFoto(true);
+		usuario.setFoto(bytes);
 		usuarioRepository.save(usuario);
 	}
 	

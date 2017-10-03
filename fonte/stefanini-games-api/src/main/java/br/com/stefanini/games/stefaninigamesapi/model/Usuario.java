@@ -23,7 +23,7 @@ public class Usuario implements Serializable {
 	private Long id;
 	
 	@Column(name="FOTO")
-	private boolean foto;
+	private byte[] foto;
 	
 	@Column(name="NOME")
 	private String nome;
@@ -49,11 +49,11 @@ public class Usuario implements Serializable {
 		this.jogador = jogador;
 	}
 
-	public boolean isFoto() {
+	public byte[] getFoto() {
 		return foto;
 	}
 
-	public void setFoto(boolean foto) {
+	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
 

@@ -1,6 +1,5 @@
 package br.com.stefanini.games.stefaninigamesapi.controller;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +60,8 @@ public class UsuarioController {
 	
 	@PostMapping(path = "/photo")
 	public void savePhoto(@RequestParam("file") MultipartFile file) {
-		writeFile("c:\\foto\\", file);
-		String username = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.'));
-		usuarioService.savedPhoto(username);
+		String username = file.getOriginalFilename();
+		usuarioService.savedPhoto(username,getBytes(file));
 	}
 	
 	@DeleteMapping(path = "/adm/{username}")
@@ -71,13 +69,11 @@ public class UsuarioController {
 		usuarioService.removerAdm(username);
 	}
 	
-	private void writeFile(String local, MultipartFile file) {
+	private byte[] getBytes(MultipartFile file) {
 		List<String> erros = new ArrayList<>();
 		try {
-			FileOutputStream fos = new FileOutputStream(local + file.getOriginalFilename());
 			byte[] bytes = file != null ? file.getBytes() : null;
-			fos.write(bytes);
-			fos.close();
+			return bytes;
 		} catch (IOException e) {
 			erros.add("Não foi possível salvar sua foto. Tente novamente mais tarde.");
 			throw new UnprocessableEntityException(erros);
