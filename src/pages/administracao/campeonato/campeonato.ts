@@ -35,6 +35,10 @@ export class CampeonatoPage implements OnInit {
     this.buscarFinalizados();
   }
 
+  gerarJogos(idCampeonato: number){
+    
+  }
+
   buscarFechados() {
     this.campeonatoService.getCampeonatosFechados(c => { this.campeonatos = c })
   }
