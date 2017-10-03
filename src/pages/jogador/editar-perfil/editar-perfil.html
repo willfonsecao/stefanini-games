@@ -6,9 +6,11 @@
 
 <ion-content padding>
     <ion-row>
-        <div offset-4 class="img-perfil" (click)="alterarFoto()">
-            <img src="{{urlImageUsuario}}" />
-        </div>
+        <ion-col col-auto offset-3 align-self-center>
+            <div class="img-perfil" (click)="alterarFoto()">
+                <img src="{{urlImageUsuario}}" />
+            </div>
+        </ion-col>
     </ion-row>
     <ion-list-header class="text-blue text-center" (click)="alterarFoto()" >
         Alterar Foto
