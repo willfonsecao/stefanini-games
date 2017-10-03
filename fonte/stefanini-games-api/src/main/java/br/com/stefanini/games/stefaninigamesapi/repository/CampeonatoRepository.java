@@ -23,7 +23,8 @@ public interface CampeonatoRepository extends JpaRepository<Campeonato, Long> {
 	@Query(value="select distinct campeonato "
 			+ " FROM Campeonato campeonato "
 			+ " WHERE campeonato.dataInicioInscricoes <= :dataAtual"
-			+ " AND campeonato.dataFimInscricoes >= :dataAtual")
+			+ " AND campeonato.dataFimInscricoes >= :dataAtual"
+			+ " AND campeonato.inscritos.size < campeonato.maxInscritos")
 	public List<Campeonato> getCampeonatosAbertos(@Param("dataAtual") Date dataAtual);
 
 	@Query(value="select distinct campeonato "

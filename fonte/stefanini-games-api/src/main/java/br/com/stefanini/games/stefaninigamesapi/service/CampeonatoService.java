@@ -59,21 +59,29 @@ public class CampeonatoService {
 	}
 
 	public List<CampeonatoDTOResponse> getCampeonatosAbertos(){
-		return this.campeonatoRepository.getCampeonatosAbertos(new Date())
+		List<CampeonatoDTOResponse> camps =  this.campeonatoRepository.getCampeonatosAbertos(new Date())
 				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
 				.collect(Collectors.toList());
+		
+		camps.stream().forEach((c)->isGerarJogos(c));
+		
+		return camps;
 	}
 
 	public List<CampeonatoDTOResponse> getCampeonatosInscricaoEncerrada(){
-		return this.campeonatoRepository.getCampeonatosInscricaoEncerrada(new Date())
+		List<CampeonatoDTOResponse> camps = this.campeonatoRepository.getCampeonatosInscricaoEncerrada(new Date())
 				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
 				.collect(Collectors.toList());
+		camps.stream().forEach((c)->isGerarJogos(c));
+		return camps;
 	}
 
 	public List<CampeonatoDTOResponse> getCampeonatosIniciados(){
-		return this.campeonatoRepository.getCampeonatosIniciados(new Date())
+		List<CampeonatoDTOResponse> camps = this.campeonatoRepository.getCampeonatosIniciados(new Date())
 				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
 				.collect(Collectors.toList());
+		camps.stream().forEach((c)->isGerarJogos(c));
+		return camps;
 	}
 
 	public List<CampeonatoDTOResponse> getCampeonatosFinalizados(){
@@ -91,6 +99,25 @@ public class CampeonatoService {
 	public void cancelarInscricao(Long idUsuario, Long idCampeonato){
 		Time time = timeRepository.getTime(idUsuario, idCampeonato);
 		timeRepository.delete(time.getId());
+	}
+	
+	public void isGerarJogos(CampeonatoDTOResponse camp) {
+		List<Time> inscritos = timeRepository.getInscritos(camp.getId());
+		boolean isGerar = (isPeriodoFinalizado(camp.getDataInicioInscricoes(), camp.getDataFimInscricoes())
+				&& isTotalInscritosPar(inscritos.size())) || isTotalInscrito(inscritos.size(), camp.getMaxInscritos());
+		camp.setGerarJogos(isGerar);
+	}
+	
+	private boolean isPeriodoFinalizado(Date dataInicio, Date dataFim){
+		return dataInicio.before(new Date()) && dataFim.before(new Date());
+	}
+	
+	private boolean isTotalInscrito(int totalInscritos, Long maxInscritos){
+		return totalInscritos == maxInscritos;
+	}
+	
+	private boolean isTotalInscritosPar(int totalInscritos){
+		return totalInscritos % 2 == 0;
 	}
 
 	private void criarJogador(Usuario usuario, Time time) {
