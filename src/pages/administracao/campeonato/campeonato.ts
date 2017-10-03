@@ -14,6 +14,8 @@ import { NavController} from "ionic-angular";
     campeonatos: CampeonatoResponse[] = [];
     campeonatosAbertos: CampeonatoResponse[] = [];
     campeonatosIniciados: CampeonatoResponse[] = [];
+    campeonatosFuturos: CampeonatoResponse[] = [];
+    campeonatosFinalizados: CampeonatoResponse[] = [];
 
     constructor(public navCtrl: NavController,
                 private campeonatoService: CampeonatoService) {
@@ -24,6 +26,8 @@ import { NavController} from "ionic-angular";
       this.buscarFechados();
       this.buscarAbertos();
       this.buscarIniciados();
+      this.buscarFuturos();
+      this.buscarFinalizados();
     }
 
     buscarFechados(){
@@ -39,6 +43,18 @@ import { NavController} from "ionic-angular";
     buscarIniciados(){
       this.campeonatoService.getCampeonatosIniciados(iniciados =>{
         this.campeonatosIniciados = iniciados;
+      })
+    }
+
+    buscarFuturos(){
+      this.campeonatoService.getCampeonatosFuturos(futuros => {
+        this.campeonatosFuturos = futuros;
+      })
+    }
+
+    buscarFinalizados(){
+      this.campeonatoService.getCampeonatosFinalizados(finalizados =>{
+        this.campeonatosFinalizados = finalizados;
       })
     }
 
