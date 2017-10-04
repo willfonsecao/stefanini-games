@@ -50,6 +50,11 @@ public class CampeonatoController {
 		this.campeonatoService.inscrever(idUsuario,idCampeonato);
 	}
 
+	@PostMapping(path = "/gerar-jogos/{idCampeonato}")
+	public void gerarJogos(@PathVariable("idCampeonato") Long idCampeonato){
+		
+	}
+
 	@GetMapping(path = "/inscricao/{idUsuario}")
 	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(@PathVariable("idUsuario") Long idUsuario){
 		return this.campeonatoService.getCampeonatosAbertosInscricao(idUsuario,new Date());
