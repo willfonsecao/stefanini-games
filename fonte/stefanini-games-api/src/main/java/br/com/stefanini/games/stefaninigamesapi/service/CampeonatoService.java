@@ -52,6 +52,17 @@ public class CampeonatoService {
 		criarJogador(usuario, time);
 	}
 	
+	public List<Usuario> getInscritos(Long idCampeonato){
+		List<Time> times = timeRepository.getInscritos(idCampeonato);
+		List<Usuario> usuarios = new ArrayList<>();
+		times.stream().forEach((time) 
+				-> time.getJogadores().forEach((jogador)
+						-> usuarios.add(jogador.getUsuario())) );
+		
+		return usuarios;
+		
+	}
+	
 	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(Long idUsuario, Date dataAtual) {
 		List<Time> times = timeRepository.getCampeonatosInscrito(idUsuario, dataAtual);
 		List<CampeonatoDTOResponse> camps = new ArrayList<>();

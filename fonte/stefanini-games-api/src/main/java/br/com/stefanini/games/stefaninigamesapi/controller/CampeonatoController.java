@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.stefanini.games.stefaninigames.api.dto.response.CampeonatoDTOResponse;
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
+import br.com.stefanini.games.stefaninigamesapi.model.Usuario;
 import br.com.stefanini.games.stefaninigamesapi.service.CampeonatoService;
 
 @CrossOrigin
@@ -58,6 +59,11 @@ public class CampeonatoController {
 	@GetMapping(path = "/inscricao/{idUsuario}")
 	public List<CampeonatoDTOResponse> getCampeonatosAbertosInscricao(@PathVariable("idUsuario") Long idUsuario){
 		return this.campeonatoService.getCampeonatosAbertosInscricao(idUsuario,new Date());
+	}
+
+	@GetMapping(path = "/inscritos/{idCampeonato}")
+	public List<Usuario> getInscritos(@PathVariable("idCampeonato") Long idCampeonato){
+		return this.campeonatoService.getInscritos(idCampeonato);
 	}
 
 	@GetMapping(path = "/abertos")
