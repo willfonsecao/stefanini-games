@@ -2,8 +2,6 @@ package br.com.stefanini.games.stefaninigamesapi.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -39,7 +36,7 @@ public class Campeonato implements Serializable{
 	private Long id;
 	
 	@Column(name = "MAX_INSCRITOS")
-	private Long maxInscritos;
+	private Integer maxInscritos;
 	
 	@Column(name = "DATA_INICIO")
 	private Date dataInicio;
@@ -81,14 +78,22 @@ public class Campeonato implements Serializable{
 	@Column(name = "EDICAO")
 	private String edicao;
 	
-	@OneToMany(mappedBy = "campeonato")
-	private Set<Etapa> etapas = new HashSet<>();
+	@Column(name = "JOGOS_GERADOS")
+	private boolean isJogosGerados;
+	
+	public boolean isJogosGerados() {
+		return isJogosGerados;
+	}
 
-	public Long getMaxInscritos() {
+	public void setJogosGerados(boolean isJogosGerados) {
+		this.isJogosGerados = isJogosGerados;
+	}
+	
+	public Integer getMaxInscritos() {
 		return maxInscritos;
 	}
 
-	public void setMaxInscritos(Long maxInscritos) {
+	public void setMaxInscritos(Integer maxInscritos) {
 		this.maxInscritos = maxInscritos;
 	}
 
@@ -105,14 +110,6 @@ public class Campeonato implements Serializable{
 
 	public void setEdicao(String edicao) {
 		this.edicao = edicao;
-	}
-
-	public Set<Etapa> getEtapas() {
-		return etapas;
-	}
-
-	public void setEtapas(Set<Etapa> etapas) {
-		this.etapas = etapas;
 	}
 
 	public Long getId() {

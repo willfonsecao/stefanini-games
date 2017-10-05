@@ -53,6 +53,7 @@ public class CampeonatoController {
 
 	@PostMapping(path = "/gerar-jogos/{idCampeonato}")
 	public void gerarJogos(@PathVariable("idCampeonato") Long idCampeonato){
+		campeonatoService.gerarJogos(idCampeonato);
 		
 	}
 

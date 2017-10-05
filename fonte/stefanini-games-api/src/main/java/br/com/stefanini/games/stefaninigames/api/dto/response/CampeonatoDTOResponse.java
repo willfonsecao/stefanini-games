@@ -2,14 +2,11 @@ package br.com.stefanini.games.stefaninigames.api.dto.response;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
 import br.com.stefanini.games.stefaninigamesapi.model.CategoriaCampeonato;
-import br.com.stefanini.games.stefaninigamesapi.model.Etapa;
 import br.com.stefanini.games.stefaninigamesapi.model.Time;
 
 public class CampeonatoDTOResponse implements Serializable {
@@ -32,7 +29,6 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.premioCampeao = campeonato.getPremioCampeao();
 		this.premioSegundoColocado = campeonato.getPremioSegundoColocado();
 		this.premioTerceiroColocado = campeonato.getPremioTerceiroColocado();
-		this.etapas = campeonato.getEtapas();
 		this.edicao = campeonato.getEdicao();
 		this.maxInscritos = campeonato.getMaxInscritos();
 	}
@@ -62,11 +58,9 @@ public class CampeonatoDTOResponse implements Serializable {
 
 	private String premioTerceiroColocado;
 
-	private Set<Etapa> etapas = new HashSet<>();
-	
 	private String edicao;
 	
-	private Long maxInscritos;
+	private Integer maxInscritos;
 	
 	private boolean isGerarJogos;
 
@@ -88,11 +82,11 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.isGerarJogos = isGerarJogos;
 	}
 
-	public Long getMaxInscritos() {
+	public Integer getMaxInscritos() {
 		return maxInscritos;
 	}
 
-	public void setMaxInscritos(Long maxInscritos) {
+	public void setMaxInscritos(Integer maxInscritos) {
 		this.maxInscritos = maxInscritos;
 	}
 
@@ -190,14 +184,6 @@ public class CampeonatoDTOResponse implements Serializable {
 
 	public void setPremioTerceiroColocado(String premioTerceiroColocado) {
 		this.premioTerceiroColocado = premioTerceiroColocado;
-	}
-
-	public Set<Etapa> getEtapas() {
-		return etapas;
-	}
-
-	public void setEtapas(Set<Etapa> etapas) {
-		this.etapas = etapas;
 	}
 
 	public String getEdicao() {

@@ -9,13 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.stefanini.games.stefaninigames.api.dto.response.CampeonatoDTOResponse;
+import br.com.stefanini.games.stefaninigamesapi.enumarated.EtapasEnum;
 import br.com.stefanini.games.stefaninigamesapi.exception.rest.UnprocessableEntityException;
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
+import br.com.stefanini.games.stefaninigamesapi.model.Etapa;
 import br.com.stefanini.games.stefaninigamesapi.model.Jogador;
+import br.com.stefanini.games.stefaninigamesapi.model.Jogo;
+import br.com.stefanini.games.stefaninigamesapi.model.JogoEtapa;
 import br.com.stefanini.games.stefaninigamesapi.model.Time;
 import br.com.stefanini.games.stefaninigamesapi.model.Usuario;
 import br.com.stefanini.games.stefaninigamesapi.repository.CampeonatoRepository;
+import br.com.stefanini.games.stefaninigamesapi.repository.EtapaRepository;
 import br.com.stefanini.games.stefaninigamesapi.repository.JogadorRepository;
+import br.com.stefanini.games.stefaninigamesapi.repository.JogoEtapaRepository;
+import br.com.stefanini.games.stefaninigamesapi.repository.JogoRepository;
 import br.com.stefanini.games.stefaninigamesapi.repository.TimeRepository;
 import br.com.stefanini.games.stefaninigamesapi.repository.UsuarioRepository;
 
@@ -33,7 +40,16 @@ public class CampeonatoService {
 
 	@Autowired
 	private JogadorRepository jogadorRepository;
-	
+
+	@Autowired
+	private EtapaRepository etapaRepository;
+
+	@Autowired
+	private JogoRepository jogoRepository;
+
+	@Autowired
+	private JogoEtapaRepository jogoEtapaRepository;
+
 	public List<CampeonatoDTOResponse> findAll(){
 		return this.campeonatoRepository.findAll()
 				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
@@ -113,6 +129,66 @@ public class CampeonatoService {
 		timeRepository.delete(time.getId());
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void gerarJogos(Long idCampeonato) {
+		Campeonato camp = campeonatoRepository.findOne(idCampeonato);
+		List<Time> inscritos = timeRepository.getInscritos(idCampeonato);
+		List<Time> inscritosSorteados = (List<Time>) SorteioService.sortear(inscritos);
+		List<Etapa> etapasCampeonato = etapaRepository.getEtapasCampeonato(idCampeonato);
+
+		if (etapasCampeonato == null || etapasCampeonato.isEmpty()) {
+			Etapa etapa = criarEtapa(camp);
+			for (int i = 0; i < inscritos.size(); i++) {
+				Jogo jogo = criarJogo(camp, inscritos, inscritosSorteados, i);
+				criarJogoEtapa(etapa, jogo);
+			}
+		}
+		
+		camp.setJogosGerados(true);
+		campeonatoRepository.save(camp);
+	}
+
+	private void criarJogoEtapa(Etapa etapa, Jogo jogo) {
+		try {
+			JogoEtapa jogoEtapa = new JogoEtapa();
+			jogoEtapa.setEtapa(etapa);
+			jogoEtapa.setJogo(jogo);
+			jogoEtapa = jogoEtapaRepository.save(jogoEtapa);
+		} catch (Exception e) {
+			throw new UnprocessableEntityException(
+					"Não foi possível gerar os relacionamento Etapa/Jogo " + e.getMessage());
+		}
+	}
+
+	private Jogo criarJogo(Campeonato camp, List<Time> inscritos, List<Time> inscritosSorteados, int i) {
+		Jogo jogo = new Jogo();
+		try {
+			jogo.setTime1(inscritos.get(i));
+			inscritos.remove(i);
+			jogo.setTime2(inscritosSorteados.get(i));
+			inscritosSorteados.remove(i);
+			jogo.setData(camp.getDataInicio());
+			jogo = jogoRepository.save(jogo);
+
+		} catch (Exception e) {
+			throw new UnprocessableEntityException("Não foi possível gerar os jogos " + e.getMessage());
+		}
+		return jogo;
+	}
+
+	private Etapa criarEtapa(Campeonato camp) {
+		Etapa etapa = new Etapa();
+		try {
+			etapa.setCampeonato(camp);
+			etapa.setData(camp.getDataInicio());
+			etapa.setNome(EtapasEnum.ETAPA_1.getDescricao());
+			etapa = etapaRepository.save(etapa);
+		} catch (Exception e) {
+			throw new UnprocessableEntityException("Não foi possível gerar a etapa " + e.getMessage());
+		}
+		return etapa;
+	}
+	
 	public void isGerarJogos(CampeonatoDTOResponse camp) {
 		List<Time> inscritos = timeRepository.getInscritos(camp.getId());
 		boolean isGerar = (isPeriodoFinalizado(camp.getDataInicioInscricoes(), camp.getDataFimInscricoes())
@@ -124,7 +200,7 @@ public class CampeonatoService {
 		return dataInicio.before(new Date()) && dataFim.before(new Date());
 	}
 	
-	private boolean isTotalInscrito(int totalInscritos, Long maxInscritos){
+	private boolean isTotalInscrito(int totalInscritos, Integer maxInscritos){
 		return totalInscritos == maxInscritos;
 	}
 	
