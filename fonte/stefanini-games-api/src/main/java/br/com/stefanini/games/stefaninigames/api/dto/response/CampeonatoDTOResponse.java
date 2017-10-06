@@ -31,6 +31,7 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.premioTerceiroColocado = campeonato.getPremioTerceiroColocado();
 		this.edicao = campeonato.getEdicao();
 		this.maxInscritos = campeonato.getMaxInscritos();
+		this.isJogosGerados = campeonato.isJogosGerados();
 	}
 
 	private Long id;
@@ -63,9 +64,19 @@ public class CampeonatoDTOResponse implements Serializable {
 	private Long maxInscritos;
 	
 	private boolean isGerarJogos;
+	
+	private boolean isJogosGerados;
 
 	private boolean isVagasPreenchidas;
 	
+	public boolean isJogosGerados() {
+		return isJogosGerados;
+	}
+
+	public void setJogosGerados(boolean isJogosGerados) {
+		this.isJogosGerados = isJogosGerados;
+	}
+
 	public boolean isVagasPreenchidas() {
 		return isVagasPreenchidas;
 	}

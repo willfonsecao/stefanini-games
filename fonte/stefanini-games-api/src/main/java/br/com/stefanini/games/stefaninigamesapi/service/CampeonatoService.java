@@ -190,8 +190,8 @@ public class CampeonatoService {
 	
 	public void isGerarJogos(CampeonatoDTOResponse camp) {
 		List<Time> inscritos = timeRepository.getInscritos(camp.getId());
-		boolean isGerar = (isPeriodoFinalizado(camp.getDataInicioInscricoes(), camp.getDataFimInscricoes())
-				&& isTotalInscritosPar(inscritos.size())) || isTotalInscrito(inscritos.size(), camp.getMaxInscritos());
+		boolean isGerar = !camp.isJogosGerados() && ( (isPeriodoFinalizado(camp.getDataInicioInscricoes(), camp.getDataFimInscricoes())
+				&& isTotalInscritosPar(inscritos.size())) || isTotalInscrito(inscritos.size(), camp.getMaxInscritos()) );
 		camp.setGerarJogos(isGerar);
 	}
 	
