@@ -6,8 +6,8 @@ import java.util.List;
 
 public class SorteioService {
 
-	public static List<?> sortear(List<?> list) {
-		List<?> listCopy = new ArrayList<>(list);
+	public static <T> List<T> sortear(List<T> list) {
+		List<T> listCopy = new ArrayList<>(list);
 		int listSize = listCopy.size();
 		for (int i = 0; i < listSize - 1; i++) {
 			int rand = getRandomEntre(i + 1, listSize - 1);

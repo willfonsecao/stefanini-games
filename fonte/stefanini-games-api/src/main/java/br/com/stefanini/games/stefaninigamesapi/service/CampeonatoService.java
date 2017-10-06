@@ -129,17 +129,18 @@ public class CampeonatoService {
 		timeRepository.delete(time.getId());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void gerarJogos(Long idCampeonato) {
 		Campeonato camp = campeonatoRepository.findOne(idCampeonato);
 		List<Time> inscritos = timeRepository.getInscritos(idCampeonato);
-		List<Time> inscritosSorteados = (List<Time>) SorteioService.sortear(inscritos);
+		List<Time> inscritosSorteados = SorteioService.sortear(inscritos);
 		List<Etapa> etapasCampeonato = etapaRepository.getEtapasCampeonato(idCampeonato);
 
 		if (etapasCampeonato == null || etapasCampeonato.isEmpty()) {
 			Etapa etapa = criarEtapa(camp);
 			for (int i = 0; i < inscritos.size(); i++) {
-				Jogo jogo = criarJogo(camp, inscritos, inscritosSorteados, i);
+				Jogo jogo = criarJogo(inscritos.get(i),inscritosSorteados.get(i),camp.getDataInicio());
+				inscritos.remove(i);
+				inscritosSorteados.remove(i);
 				criarJogoEtapa(etapa, jogo);
 			}
 		}
@@ -160,14 +161,12 @@ public class CampeonatoService {
 		}
 	}
 
-	private Jogo criarJogo(Campeonato camp, List<Time> inscritos, List<Time> inscritosSorteados, int i) {
+	private Jogo criarJogo(Time time1,Time time2, Date dataJogo) {
 		Jogo jogo = new Jogo();
 		try {
-			jogo.setTime1(inscritos.get(i));
-			inscritos.remove(i);
-			jogo.setTime2(inscritosSorteados.get(i));
-			inscritosSorteados.remove(i);
-			jogo.setData(camp.getDataInicio());
+			jogo.setTime1(time1);
+			jogo.setTime2(time2);
+			jogo.setData(dataJogo);
 			jogo = jogoRepository.save(jogo);
 
 		} catch (Exception e) {
