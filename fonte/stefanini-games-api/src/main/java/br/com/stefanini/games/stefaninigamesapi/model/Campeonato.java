@@ -36,7 +36,7 @@ public class Campeonato implements Serializable{
 	private Long id;
 	
 	@Column(name = "MAX_INSCRITOS")
-	private Integer maxInscritos;
+	private Long maxInscritos;
 	
 	@Column(name = "DATA_INICIO")
 	private Date dataInicio;
@@ -89,11 +89,11 @@ public class Campeonato implements Serializable{
 		this.isJogosGerados = isJogosGerados;
 	}
 	
-	public Integer getMaxInscritos() {
+	public Long getMaxInscritos() {
 		return maxInscritos;
 	}
 
-	public void setMaxInscritos(Integer maxInscritos) {
+	public void setMaxInscritos(Long maxInscritos) {
 		this.maxInscritos = maxInscritos;
 	}
 

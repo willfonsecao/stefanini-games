@@ -43,10 +43,10 @@ public class CategoriaCampeonatoService {
 	
 	private void verificarMaximoPreenchido(CampeonatoDTOResponse camp){
 		List<Time> inscritos = timeRepository.getInscritos(camp.getId());
-		camp.setVagasPreenchidas(isTotalPreenchido(inscritos.size(), camp.getMaxInscritos().intValue()));
+		camp.setVagasPreenchidas(isTotalPreenchido(inscritos.size(), camp.getMaxInscritos()));
 	}
 	
-	private boolean isTotalPreenchido(int totalInscritos, int maxInscritos){
+	private boolean isTotalPreenchido(int totalInscritos, Long maxInscritos){
 		return totalInscritos == maxInscritos;
 	}
 	

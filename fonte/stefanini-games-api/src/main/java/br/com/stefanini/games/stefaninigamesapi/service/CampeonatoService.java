@@ -200,7 +200,7 @@ public class CampeonatoService {
 		return dataInicio.before(new Date()) && dataFim.before(new Date());
 	}
 	
-	private boolean isTotalInscrito(int totalInscritos, Integer maxInscritos){
+	private boolean isTotalInscrito(int totalInscritos, Long maxInscritos){
 		return totalInscritos == maxInscritos;
 	}
 	
@@ -231,6 +231,10 @@ public class CampeonatoService {
 
 		if (param.getCategoria().getId() == null) {
 			erros.add("O campo Categoria é obrigatório.");
+		}
+		
+		if(param.getMaxInscritos()== null){
+			erros.add("O máximo de inscritos é obrigatório");
 		}
 
 		if (!erros.isEmpty()) {

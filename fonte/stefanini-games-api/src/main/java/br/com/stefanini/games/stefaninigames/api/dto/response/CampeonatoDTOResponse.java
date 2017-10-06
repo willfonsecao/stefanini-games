@@ -60,7 +60,7 @@ public class CampeonatoDTOResponse implements Serializable {
 
 	private String edicao;
 	
-	private Integer maxInscritos;
+	private Long maxInscritos;
 	
 	private boolean isGerarJogos;
 
@@ -82,11 +82,11 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.isGerarJogos = isGerarJogos;
 	}
 
-	public Integer getMaxInscritos() {
+	public Long getMaxInscritos() {
 		return maxInscritos;
 	}
 
-	public void setMaxInscritos(Integer maxInscritos) {
+	public void setMaxInscritos(Long maxInscritos) {
 		this.maxInscritos = maxInscritos;
 	}
 
