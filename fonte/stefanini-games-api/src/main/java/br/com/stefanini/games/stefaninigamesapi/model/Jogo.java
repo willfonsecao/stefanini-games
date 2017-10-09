@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.stefanini.games.stefaninigamesapi.enumarated.SimNaoEnum;
 
 @Entity
@@ -65,6 +67,7 @@ public class Jogo implements Serializable{
 	@Column(name = "PONTOS_TIME_2")
 	private Integer pontosTime2;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy="jogo")
 	private Set<JogoEtapa> jogosEtapas = new HashSet<>();
 	
@@ -163,5 +166,29 @@ public class Jogo implements Serializable{
 	public void setPontosTime2(Integer pontosTime2) {
 		this.pontosTime2 = pontosTime2;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Jogo other = (Jogo) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }
