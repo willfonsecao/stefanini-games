@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.stefanini.games.stefaninigames.api.dto.response.EtapaDTOResponse;
 import br.com.stefanini.games.stefaninigames.api.dto.response.JogoDTOResponse;
 import br.com.stefanini.games.stefaninigames.api.dto.response.JogosEtapaDTOResponse;
+import br.com.stefanini.games.stefaninigamesapi.model.Jogo;
 import br.com.stefanini.games.stefaninigamesapi.repository.EtapaRepository;
 import br.com.stefanini.games.stefaninigamesapi.repository.JogoEtapaRepository;
 import br.com.stefanini.games.stefaninigamesapi.repository.JogoRepository;
@@ -41,6 +42,11 @@ public class EtapaService {
 		return jogoRepository.getJogosEtapa(idJogoEtapa).stream()
 				.map((jogo) -> new JogoDTOResponse(jogo))
 				.collect(Collectors.toList());
+	}
+	
+	public JogoDTOResponse saveJogo(Jogo jogo){
+		Jogo jogoSalvo = jogoRepository.save(jogo);
+		return new JogoDTOResponse(jogoSalvo);
 	}
 	
 	

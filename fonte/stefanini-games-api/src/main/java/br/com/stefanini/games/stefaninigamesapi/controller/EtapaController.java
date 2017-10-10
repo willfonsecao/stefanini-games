@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.stefanini.games.stefaninigames.api.dto.response.EtapaDTOResponse;
 import br.com.stefanini.games.stefaninigames.api.dto.response.JogoDTOResponse;
 import br.com.stefanini.games.stefaninigames.api.dto.response.JogosEtapaDTOResponse;
+import br.com.stefanini.games.stefaninigamesapi.model.Jogo;
 import br.com.stefanini.games.stefaninigamesapi.service.EtapaService;
 
 @CrossOrigin
@@ -35,6 +38,11 @@ public class EtapaController {
 	@GetMapping(path = "/jogos/{idJogoEtapa}")
 	public List<JogoDTOResponse> getJogos(@PathVariable("idJogoEtapa") Long idJogoEtapa){
 		return etapaService.getJogos(idJogoEtapa);
+	}
+	
+	@PostMapping(path = "/jogo")
+	public JogoDTOResponse saveJogo(@RequestBody Jogo jogo){
+		return this.etapaService.saveJogo(jogo);
 	}
 	
 
