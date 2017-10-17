@@ -116,7 +116,7 @@ public class CampeonatoService {
 	}
 
 	public List<CampeonatoDTOResponse> getCampeonatosIniciados(){
-		List<CampeonatoDTOResponse> camps = this.campeonatoRepository.getCampeonatosIniciados(new Date())
+		List<CampeonatoDTOResponse> camps = this.campeonatoRepository.getCampeonatosIniciados()
 				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
 				.collect(Collectors.toList());
 		camps.stream().forEach((c)->isGerarJogos(c));
@@ -124,7 +124,7 @@ public class CampeonatoService {
 	}
 
 	public List<CampeonatoDTOResponse> getCampeonatosFinalizados(){
-		return this.campeonatoRepository.getCampeonatosFinalizados(new Date())
+		return this.campeonatoRepository.getCampeonatosFinalizados()
 				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
 				.collect(Collectors.toList());
 	}
