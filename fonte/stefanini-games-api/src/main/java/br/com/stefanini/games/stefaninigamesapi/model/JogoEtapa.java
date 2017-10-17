@@ -2,6 +2,7 @@ package br.com.stefanini.games.stefaninigamesapi.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class JogoEtapa implements Serializable{
 	@JoinColumn(name ="ID_ETAPA")
 	private Etapa etapa;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name ="ID_JOGO")
 	private Jogo jogo;
 

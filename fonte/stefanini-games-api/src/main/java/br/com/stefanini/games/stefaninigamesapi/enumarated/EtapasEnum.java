@@ -18,13 +18,22 @@ public enum EtapasEnum {
 		this.descricao = descricao;
 	}
 	
-	public static String getMes(int numeroMes){
-		for (EtapasEnum mes : values()) {
-			if(numeroMes == mes.getId()){
-				return mes.getDescricao();
+	public static EtapasEnum getEtapa(int codigoEtapa){
+		for (EtapasEnum etapa : values()) {
+			if(codigoEtapa == etapa.getId()){
+				return etapa;
 			}
 		}
-		return "-";
+		return null;
+	}
+
+	public static EtapasEnum getEtapa(String nomeEtapa){
+		for (EtapasEnum etapa : values()) {
+			if(nomeEtapa == etapa.getDescricao()){
+				return etapa;
+			}
+		}
+		return null;
 	}
 	
 	public int getId() {

@@ -17,4 +17,12 @@ public interface JogoEtapaRepository extends JpaRepository<JogoEtapa, Long> {
 			+ " WHERE etapa.id = :idEtapa ")
 	public List<JogoEtapa> getJogosEtapa(@Param("idEtapa") Long idEtapa);
 
+	@Query(value="select distinct jogoEtapa "
+			+ " FROM JogoEtapa jogoEtapa "
+			+ " LEFT JOIN FETCH jogoEtapa.etapa etapa"
+			+ " LEFT JOIN FETCH etapa.campeonato campeonato"
+			+ " LEFT JOIN FETCH jogoEtapa.jogo jogo"
+			+ " WHERE jogo.id = :idJogo ")
+	public JogoEtapa getJogosEtapaByJogo(@Param("idJogo") Long idJogo);
+
 }

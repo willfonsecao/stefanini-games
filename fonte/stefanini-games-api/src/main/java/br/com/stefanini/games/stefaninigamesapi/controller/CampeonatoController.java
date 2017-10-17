@@ -31,6 +31,11 @@ public class CampeonatoController {
 		return this.campeonatoService.findAll();
 	}
 	
+	@GetMapping(path = "/get-one/{idCampeonato}")
+	public CampeonatoDTOResponse getById(@PathVariable Long idCampeonato){
+		return campeonatoService.getById(idCampeonato);
+	}
+	
 	@PostMapping
 	public Campeonato save(@RequestBody Campeonato campeonato){
 		return this.campeonatoService.save(campeonato);

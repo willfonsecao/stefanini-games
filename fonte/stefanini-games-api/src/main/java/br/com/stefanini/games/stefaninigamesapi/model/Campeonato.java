@@ -2,7 +2,10 @@ package br.com.stefanini.games.stefaninigamesapi.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -81,8 +85,19 @@ public class Campeonato implements Serializable{
 	@Column(name = "JOGOS_GERADOS")
 	private boolean isJogosGerados;
 	
+	@OneToMany(mappedBy = "campeonato", cascade = CascadeType.REMOVE)
+	private Set<Etapa> etapas = new HashSet<>();
+	
 	public boolean isJogosGerados() {
 		return isJogosGerados;
+	}
+
+	public Set<Etapa> getEtapas() {
+		return etapas;
+	}
+
+	public void setEtapas(Set<Etapa> etapas) {
+		this.etapas = etapas;
 	}
 
 	public void setJogosGerados(boolean isJogosGerados) {

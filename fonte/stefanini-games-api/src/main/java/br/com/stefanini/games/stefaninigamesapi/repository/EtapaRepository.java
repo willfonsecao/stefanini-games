@@ -15,7 +15,9 @@ public interface EtapaRepository extends JpaRepository<Etapa, Long> {
 			+ " LEFT JOIN FETCH etapa.campeonato camp"
 			+ " LEFT JOIN FETCH etapa.jogosEtapas jogosEtapas"
 			+ " LEFT JOIN FETCH jogosEtapas.jogo jogo"
-			+ " WHERE camp.id = :idCampeonato ")
+			+ " WHERE camp.id = :idCampeonato "
+			+ " ORDER BY etapa.data DESC ")
 	public List<Etapa> getEtapasCampeonato(@Param("idCampeonato") Long idCampeonato);
+
 
 }

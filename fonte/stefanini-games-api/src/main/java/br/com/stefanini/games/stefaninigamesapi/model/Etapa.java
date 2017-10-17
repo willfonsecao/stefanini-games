@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Etapa implements Serializable{
 	@Column(name = "DATA")
 	private Date data;
 	
-	@OneToMany(mappedBy="etapa")
+	@OneToMany(mappedBy="etapa", cascade = CascadeType.REMOVE)
 	private Set<JogoEtapa> jogosEtapas = new HashSet<>();
 	
 	public Long getId() {

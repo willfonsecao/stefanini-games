@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,16 @@ public class CampeonatoService {
 		return this.campeonatoRepository.findAll()
 				.stream().map((campeonato) -> new CampeonatoDTOResponse(campeonato))
 				.collect(Collectors.toList());
+	}
+	
+	public CampeonatoDTOResponse getById(Long id){
+		Campeonato camp = campeonatoRepository.getOne(id);
+		
+		if(camp != null){
+			return new CampeonatoDTOResponse(camp);
+		}
+		
+		return null;
 	}
 	
 	public Campeonato save(Campeonato campeonato){
@@ -131,22 +142,57 @@ public class CampeonatoService {
 	
 	public void gerarJogos(Long idCampeonato) {
 		Campeonato camp = campeonatoRepository.findOne(idCampeonato);
-		List<Time> inscritos = timeRepository.getInscritos(idCampeonato);
-		List<Time> inscritosSorteados = SorteioService.sortear(inscritos);
 		List<Etapa> etapasCampeonato = etapaRepository.getEtapasCampeonato(idCampeonato);
 
-		if (etapasCampeonato == null || etapasCampeonato.isEmpty()) {
-			Etapa etapa = criarEtapa(camp);
-			for (int i = 0; i < inscritos.size(); i++) {
-				Jogo jogo = criarJogo(inscritos.get(i),inscritosSorteados.get(i),camp.getDataInicio());
-				inscritos.remove(i);
-				inscritosSorteados.remove(i);
-				criarJogoEtapa(etapa, jogo);
+		if (!hasEtapas(etapasCampeonato)) {
+			List<Time> inscritos = timeRepository.getInscritos(idCampeonato);
+			String nomeEtapa = getNomeNovaEtapa(etapasCampeonato, inscritos.size(), false, false);
+			criarEstruturaJogo(camp, nomeEtapa, camp.getDataInicio(), inscritos);
+
+		} else {
+			Etapa ultimaEtapa = etapasCampeonato.get(0);
+			List<Time> jogadores = this.getVencedoresEtapa(ultimaEtapa);
+			Date dataProximaEtapa = new DateTime(ultimaEtapa.getData()).plusDays(7).toDate();
+
+			if (!isProximaEtapaFinal(jogadores.size())) {
+
+				String nomeEtapa = getNomeNovaEtapa(etapasCampeonato, jogadores.size(), false, false);
+				criarEstruturaJogo(camp, nomeEtapa, dataProximaEtapa, jogadores);
+
+			} else {
+
+				String nomeFinal = getNomeNovaEtapa(etapasCampeonato, 0, true, false);
+				criarEstruturaJogo(camp, nomeFinal, dataProximaEtapa, jogadores);
+
+				List<Time> perdedores = this.getPerdedoresEtapa(ultimaEtapa);
+				String nomeTerceiro = getNomeNovaEtapa(etapasCampeonato, 0, false, true);
+				criarEstruturaJogo(camp, nomeTerceiro, dataProximaEtapa, perdedores);
 			}
 		}
-		
+
 		camp.setJogosGerados(true);
 		campeonatoRepository.save(camp);
+	}
+	
+	private boolean hasEtapas(List<Etapa> etapasCampeonato) {
+		return etapasCampeonato != null && !etapasCampeonato.isEmpty();
+	}
+	
+	private void criarEstruturaJogo(Campeonato camp, String nomeEtapa, Date dataProximaEtapa, List<Time> participantes){
+		Etapa etapa = criarEtapa(camp, nomeEtapa, dataProximaEtapa);
+		criarEstruturaJogoEtapa(etapa, participantes);
+	}
+	
+	private void criarEstruturaJogoEtapa(Etapa etapa, List<Time> participantes){
+		List<Time> participantesSorteados = SorteioService.sortear(participantes);
+		
+		for (int i = 0; i < participantes.size(); i++) {
+			Jogo jogo = criarJogo(participantes.get(i), participantesSorteados.get(i), etapa.getData());
+			participantes.remove(i);
+			participantesSorteados.remove(i);
+			criarJogoEtapa(etapa, jogo);
+		}
+		
 	}
 
 	private void criarJogoEtapa(Etapa etapa, Jogo jogo) {
@@ -174,13 +220,60 @@ public class CampeonatoService {
 		}
 		return jogo;
 	}
+	
+	private boolean isProximaEtapaFinal(Integer totalVencedores){
+		if(totalVencedores == 2){
+			return true;
+		}
+		return false;
+	}
+	
+	private String getNomeNovaEtapa(List<Etapa> etapasCampeonato, Integer totalJogadores, boolean isFinal, boolean isTerceiroLugar){
+		EtapasEnum ultimaEtapaEnum = EtapasEnum.getEtapa(etapasCampeonato.get(0).getNome());
+		
+		if(isFinal){
+			return EtapasEnum.FINAL.getDescricao();
+		}else if(isTerceiroLugar){
+			return EtapasEnum.TERCEIRO_LUGAR.getDescricao();
+		}
+		
+		if(!hasEtapas(etapasCampeonato)){
+			return EtapasEnum.ETAPA_1.getDescricao();
+		}else if(totalJogadores >= 16){
+			return EtapasEnum.getEtapa(ultimaEtapaEnum.getId() + 1).getDescricao();
+		}else if(totalJogadores == 16){
+			return EtapasEnum.OITAVAS.getDescricao();
+		}else if(totalJogadores == 8){
+			return EtapasEnum.QUARTAS.getDescricao();
+		}else if(totalJogadores == 4){
+			return EtapasEnum.SEMI_FINAL.getDescricao();
+		}
+		
+		return "";
+	}
+	
+	private List<Time> getVencedoresEtapa(Etapa etapa){
+		List<Time> vencedores = new ArrayList<>();
+		etapa.getJogosEtapas().stream().forEach((jogoEtapa) -> {
+			vencedores.add(jogoEtapa.getJogo().getVencedor());
+		});
+		return vencedores;
+	}
 
-	private Etapa criarEtapa(Campeonato camp) {
+	private List<Time> getPerdedoresEtapa(Etapa etapa){
+		List<Time> perdedores = new ArrayList<>();
+		etapa.getJogosEtapas().stream().forEach((jogoEtapa) -> {
+			perdedores.add(jogoEtapa.getJogo().getPerdedor());
+		});
+		return perdedores;
+	}
+
+	private Etapa criarEtapa(Campeonato camp, String nomeEtapa, Date dataEtapa) {
 		Etapa etapa = new Etapa();
 		try {
 			etapa.setCampeonato(camp);
-			etapa.setData(camp.getDataInicio());
-			etapa.setNome(EtapasEnum.ETAPA_1.getDescricao());
+			etapa.setData(dataEtapa);
+			etapa.setNome(nomeEtapa);
 			etapa = etapaRepository.save(etapa);
 		} catch (Exception e) {
 			throw new UnprocessableEntityException("Não foi possível gerar a etapa " + e.getMessage());
@@ -190,9 +283,20 @@ public class CampeonatoService {
 	
 	public void isGerarJogos(CampeonatoDTOResponse camp) {
 		List<Time> inscritos = timeRepository.getInscritos(camp.getId());
-		boolean isGerar = !camp.isJogosGerados() && ( (isPeriodoFinalizado(camp.getDataInicioInscricoes(), camp.getDataFimInscricoes())
+		boolean isGerar = !camp.isJogosGerados() || isUltimosJogosComResultados(camp.getId()) && ( (isPeriodoFinalizado(camp.getDataInicioInscricoes(), camp.getDataFimInscricoes())
 				&& isTotalInscritosPar(inscritos.size())) || isTotalInscrito(inscritos.size(), camp.getMaxInscritos()) );
 		camp.setGerarJogos(isGerar);
+	}
+	
+	private boolean isUltimosJogosComResultados(Long idCampeonato){
+		Etapa etapa = etapaRepository.getEtapasCampeonato(idCampeonato).get(0);
+		
+		for (JogoEtapa jogoEtapa : etapa.getJogosEtapas()) {
+			if(jogoEtapa.getJogo().getPlacarTime1() == null || jogoEtapa.getEtapa().getNome().equals(EtapasEnum.FINAL.getDescricao())){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private boolean isPeriodoFinalizado(Date dataInicio, Date dataFim){

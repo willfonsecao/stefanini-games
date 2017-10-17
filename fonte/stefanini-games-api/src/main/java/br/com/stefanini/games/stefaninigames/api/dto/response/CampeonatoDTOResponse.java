@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
 import br.com.stefanini.games.stefaninigamesapi.model.CategoriaCampeonato;
-import br.com.stefanini.games.stefaninigamesapi.model.Time;
 
 public class CampeonatoDTOResponse implements Serializable {
 
@@ -22,9 +21,7 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.dataFim = campeonato.getDataFim();
 		this.dataInicioInscricoes = campeonato.getDataInicioInscricoes();
 		this.dataFimInscricoes = campeonato.getDataFimInscricoes();
-		this.campeao = campeonato.getCampeao();
-		this.segundoColocado = campeonato.getSegundoColocado();
-		this.terceiroColocado = campeonato.getTerceiroColocado();
+		atribuirFinalistas(campeonato);
 		this.categoria = campeonato.getCategoria();
 		this.premioCampeao = campeonato.getPremioCampeao();
 		this.premioSegundoColocado = campeonato.getPremioSegundoColocado();
@@ -32,6 +29,18 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.edicao = campeonato.getEdicao();
 		this.maxInscritos = campeonato.getMaxInscritos();
 		this.isJogosGerados = campeonato.isJogosGerados();
+	}
+
+	private void atribuirFinalistas(Campeonato campeonato) {
+		if(campeonato.getCampeao() != null){
+			this.campeao = new TimeDTOResponse(campeonato.getCampeao());
+		}
+		if(campeonato.getSegundoColocado() != null){
+			this.segundoColocado = new TimeDTOResponse(campeonato.getSegundoColocado());
+		}
+		if(campeonato.getTerceiroColocado() != null){
+			this.terceiroColocado = new TimeDTOResponse(campeonato.getTerceiroColocado());
+		}
 	}
 
 	private Long id;
@@ -44,11 +53,11 @@ public class CampeonatoDTOResponse implements Serializable {
 
 	private Date dataFimInscricoes;
 
-	private Time campeao;
+	private TimeDTOResponse campeao;
 
-	private Time segundoColocado;
+	private TimeDTOResponse segundoColocado;
 
-	private Time terceiroColocado;
+	private TimeDTOResponse terceiroColocado;
 
 	@JsonManagedReference
 	private CategoriaCampeonato categoria;
@@ -141,27 +150,27 @@ public class CampeonatoDTOResponse implements Serializable {
 		this.dataFimInscricoes = dataFimInscricoes;
 	}
 
-	public Time getCampeao() {
+	public TimeDTOResponse getCampeao() {
 		return campeao;
 	}
 
-	public void setCampeao(Time campeao) {
+	public void setCampeao(TimeDTOResponse campeao) {
 		this.campeao = campeao;
 	}
 
-	public Time getSegundoColocado() {
+	public TimeDTOResponse getSegundoColocado() {
 		return segundoColocado;
 	}
 
-	public void setSegundoColocado(Time segundoColocado) {
+	public void setSegundoColocado(TimeDTOResponse segundoColocado) {
 		this.segundoColocado = segundoColocado;
 	}
 
-	public Time getTerceiroColocado() {
+	public TimeDTOResponse getTerceiroColocado() {
 		return terceiroColocado;
 	}
 
-	public void setTerceiroColocado(Time terceiroColocado) {
+	public void setTerceiroColocado(TimeDTOResponse terceiroColocado) {
 		this.terceiroColocado = terceiroColocado;
 	}
 
