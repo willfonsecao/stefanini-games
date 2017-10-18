@@ -39,6 +39,11 @@ public class CategoriaCampeonatoController {
 		return this.categoriaService.getCategoriasAbertasParaInscricao();
 	}
 	
+	@GetMapping(path = "/campeonatos/finalizados")
+	public List<CategoriaCampeonatoDTOResponse> getCategoriasCampeonatosFinalizados(){
+		return categoriaService.getCategoriasCampeonatosFinalizados();
+	}
+	
 	@PostMapping
 	public CategoriaCampeonato save(@RequestBody CategoriaCampeonato categoria){
 		return this.categoriaService.save(categoria);

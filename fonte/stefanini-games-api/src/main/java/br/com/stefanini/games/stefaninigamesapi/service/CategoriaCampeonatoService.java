@@ -37,6 +37,12 @@ public class CategoriaCampeonatoService {
 		return categorias;
 	}
 	
+	public List<CategoriaCampeonatoDTOResponse> getCategoriasCampeonatosFinalizados(){
+		return categoriaRepository.getCategoriasCampeonatosFinalizados()
+				.stream().map((categoria) -> new CategoriaCampeonatoDTOResponse(categoria))
+				.collect(Collectors.toList());
+	}
+	
 	private void verificarVagasPreenchidasCampeonatos(CategoriaCampeonatoDTOResponse categoria){
 		categoria.getCampeonatos().stream().forEach((c)-> verificarMaximoPreenchido(c));
 	}

@@ -20,4 +20,11 @@ public interface CategoriaCampeonatoRepository extends JpaRepository<CategoriaCa
 			+ " AND camps.isJogosGerados = 0 ")
 	public List<CategoriaCampeonato> getCategoriasAbertasParaInscricao(@Param("dataAtual") Date dataAtual);
 
+	@Query(value="select distinct categoria "
+			+ " FROM CategoriaCampeonato categoria "
+			+ " LEFT JOIN FETCH categoria.campeonatos camps"
+			+ " WHERE camps.campeao IS NOT NULL "
+			+ " ORDER BY camps.dataInicio DESC ")
+	public List<CategoriaCampeonato> getCategoriasCampeonatosFinalizados();
+
 }
