@@ -72,6 +72,10 @@ public class CampeonatoService {
 		return this.campeonatoRepository.save(campeonato);
 	}
 	
+	public List<Object> getCampeoes(){
+		return jogadorRepository.getJogadoresCampeoes();
+	}
+	
 	public void inscrever(Long idUsuario, Long idCampeonato){
 		Campeonato campeonato = campeonatoRepository.findOne(idCampeonato);
 		Usuario usuario = usuarioRepository.findOne(idUsuario);
@@ -229,7 +233,12 @@ public class CampeonatoService {
 	}
 	
 	private String getNomeNovaEtapa(List<Etapa> etapasCampeonato, Integer totalJogadores, boolean isFinal, boolean isTerceiroLugar){
-		EtapasEnum ultimaEtapaEnum = EtapasEnum.getEtapa(etapasCampeonato.get(0).getNome());
+		EtapasEnum ultimaEtapaEnum;
+		if(hasEtapas(etapasCampeonato)){
+			ultimaEtapaEnum = EtapasEnum.getEtapa(etapasCampeonato.get(0).getNome());
+		}else{
+			return EtapasEnum.ETAPA_1.getDescricao();
+		}
 		
 		if(isFinal){
 			return EtapasEnum.FINAL.getDescricao();
@@ -237,9 +246,7 @@ public class CampeonatoService {
 			return EtapasEnum.TERCEIRO_LUGAR.getDescricao();
 		}
 		
-		if(!hasEtapas(etapasCampeonato)){
-			return EtapasEnum.ETAPA_1.getDescricao();
-		}else if(totalJogadores >= 16){
+		if(totalJogadores >= 16){
 			return EtapasEnum.getEtapa(ultimaEtapaEnum.getId() + 1).getDescricao();
 		}else if(totalJogadores == 16){
 			return EtapasEnum.OITAVAS.getDescricao();

@@ -15,7 +15,8 @@ public interface CampeonatoRepository extends JpaRepository<Campeonato, Long> {
 			+ " FROM Campeonato campeonato "
 			+ " WHERE campeonato.dataInicioInscricoes <= :dataAtual"
 			+ " AND campeonato.dataFimInscricoes >= :dataAtual"
-			+ " AND campeonato.isJogosGerados = 0")
+			+ " AND campeonato.isJogosGerados = 0"
+			+ " AND campeonato.maxInscritos > (SELECT COUNT(time.id) FROM Time time WHERE time.campeonato.id = campeonato.id) ")
 	public List<Campeonato> getCampeonatosAbertos(@Param("dataAtual") Date dataAtual);
 
 	@Query(value="select distinct campeonato "
@@ -42,5 +43,5 @@ public interface CampeonatoRepository extends JpaRepository<Campeonato, Long> {
 			+ " FROM Campeonato campeonato "
 			+ " WHERE campeonato.campeao IS NOT NULL ")
 	public List<Campeonato> getCampeonatosFinalizados();
-
+	
 }

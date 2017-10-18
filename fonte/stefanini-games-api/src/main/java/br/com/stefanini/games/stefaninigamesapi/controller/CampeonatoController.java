@@ -30,10 +30,15 @@ public class CampeonatoController {
 	public List<CampeonatoDTOResponse> getCampeonatos(){
 		return this.campeonatoService.findAll();
 	}
-	
+
 	@GetMapping(path = "/get-one/{idCampeonato}")
 	public CampeonatoDTOResponse getById(@PathVariable Long idCampeonato){
 		return campeonatoService.getById(idCampeonato);
+	}
+
+	@GetMapping(path = "/campeoes")
+	public List<Object> getCampeoes(){
+		return campeonatoService.getCampeoes();
 	}
 	
 	@PostMapping

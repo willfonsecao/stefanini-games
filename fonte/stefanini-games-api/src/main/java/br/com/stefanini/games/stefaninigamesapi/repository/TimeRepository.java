@@ -34,5 +34,10 @@ public interface TimeRepository extends JpaRepository<Time, Long> {
 			+ " AND campeonato.dataFimInscricoes >= :dataAtual")
 	public List<Time> getCampeonatosInscrito(@Param("idUsuario") Long idUsuario,@Param("dataAtual") Date dataAtual);
 	
-
+	@Query(value="select time "
+			+ " FROM Time time "
+			+ " JOIN time.campeonato campeonato"
+			+ " WHERE campeonato.campeao.id = time.id ")
+	public List<Time> getCampeoes();
+	
 }

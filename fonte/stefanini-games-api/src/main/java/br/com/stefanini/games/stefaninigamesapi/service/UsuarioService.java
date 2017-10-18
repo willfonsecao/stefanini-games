@@ -18,7 +18,7 @@ public class UsuarioService {
 	public Usuario save(Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
-
+	
 	public Usuario saveAdm(String username) {
 		Usuario usuario = this.findByUsername(username);
 		if(validarUsuario(usuario)){
