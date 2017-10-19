@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.stefanini.games.stefaninigames.api.dto.response.CampeonatoDTOResponse;
+import br.com.stefanini.games.stefaninigames.api.dto.response.JogoDTOResponse;
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
 import br.com.stefanini.games.stefaninigamesapi.model.Usuario;
 import br.com.stefanini.games.stefaninigamesapi.service.CampeonatoService;
@@ -39,6 +40,11 @@ public class CampeonatoController {
 	@GetMapping(path = "/campeoes")
 	public List<Object> getCampeoes(){
 		return campeonatoService.getCampeoes();
+	}
+
+	@GetMapping(path = "/proximos-jogos/{idUsuario}")
+	public List<JogoDTOResponse> getProximoxJogosUsuario(@PathVariable Long idUsuario){
+		return campeonatoService.getProximoxJogosUsuario(idUsuario);
 	}
 	
 	@PostMapping

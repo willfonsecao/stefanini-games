@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.stefanini.games.stefaninigames.api.dto.response.CampeonatoDTOResponse;
+import br.com.stefanini.games.stefaninigames.api.dto.response.JogoDTOResponse;
 import br.com.stefanini.games.stefaninigamesapi.enumarated.EtapasEnum;
 import br.com.stefanini.games.stefaninigamesapi.exception.rest.UnprocessableEntityException;
 import br.com.stefanini.games.stefaninigamesapi.model.Campeonato;
@@ -74,6 +75,12 @@ public class CampeonatoService {
 	
 	public List<Object> getCampeoes(){
 		return jogadorRepository.getJogadoresCampeoes();
+	}
+	
+	public List<JogoDTOResponse> getProximoxJogosUsuario(Long idUsuario){
+		return jogoRepository.getProximosJogosUsuario(2L, new Date())
+				.stream().map((jogo) -> new JogoDTOResponse(jogo))
+				.collect(Collectors.toList());
 	}
 	
 	public void inscrever(Long idUsuario, Long idCampeonato){

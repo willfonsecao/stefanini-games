@@ -17,4 +17,5 @@ public interface JogadorRepository extends JpaRepository<Jogador, Long> {
 			+ " GROUP BY usuario.id, usuario.nome "
 			+ " ORDER BY vitorias DESC ")
 	public List<Object> getJogadoresCampeoes();
+
 }
